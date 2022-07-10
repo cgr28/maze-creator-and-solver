@@ -1,7 +1,12 @@
+from http.client import MOVED_PERMANENTLY
+from importlib.resources import path
 from grid import Grid
 from helpers import *
 from maze_solver.helpers import *
+import sys
 from collections import deque
+
+from maze_solver.helpers import get_heuristic
 
 
 class MazeSolvers:
@@ -70,3 +75,43 @@ class MazeSolvers:
                 que.append((new_row, new_col, path.copy()))
 
         return None  # there is no solution
+
+    # @staticmethod
+    # def a_star(maze: Grid, start: tuple, end: tuple):
+    #     end_row, end_col = end
+    #     open = [AStarCell(None, 0, get_heuristic(start, end), start)]
+    #     closed = []
+    #     path = []
+
+    #     while open:
+    #         min_i = 0
+
+    #         # finds lowest f in open
+    #         for i in range(len(open)):
+    #             if open[i].f <= open[min_i].f:
+    #                 min_i = i
+                
+    #         min_cell = open.pop(min_i)
+    #         path.append(min_cell.pos)
+
+    #         if min_cell.pos == end:
+    #             return path
+
+    #         closed.append(min_cell)
+
+    #         for dir in [UP, DOWN, LEFT, RIGHT]:
+    #             if not can_move(maze, min_cell.pos, dir):
+    #                 continue
+    #             pot_pos = move(min_cell.pos, dir)
+    #             pot = AStarCell(min_cell, min_cell.g+1, get_heuristic(pot_pos, end), pot_pos)
+    #             if pot in closed:
+    #                 print("108")
+    #                 continue
+    #             if pot not in open:
+    #                 open.append(pot)
+    #             else:
+    #                 index = open.index(pot)
+    #                 og = open[index]
+    #                 if pot.g < og.g:
+    #                     og.new_parent(min_cell)
+    #     return None

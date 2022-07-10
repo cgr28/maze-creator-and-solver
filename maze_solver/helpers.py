@@ -41,3 +41,22 @@ def can_move(maze, pos, direction):
         return False
 
     return True
+
+def get_heuristic(pos, end):
+    row, col = pos
+    end_row, end_col = end
+    return abs(row-end_row) + abs(col-end_col)
+
+class AStarCell:
+
+    def __init__(self, parent, g, h, pos):
+        self.g = g
+        self.h = h
+        self.f = g+h
+        self.pos = pos
+        self.parent = parent
+    
+    def new_parent(self, parent):
+        self.parent = parent
+        self.g = parent.g + 1
+        self.f = self.g + self.h
