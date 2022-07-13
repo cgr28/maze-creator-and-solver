@@ -2,7 +2,7 @@
 A python program that creates mazes using the hunt and kill algorithm, then solves them using bfs or dfs.
 <div class="row">
     <div class="column">
-        <img src="https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/examples/../../../../../../examples/no_path_30.svg" alt="example">
+        <img src="https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/examples/no_path_30.svg" alt="example">
     </div>
     <div class="column">
         <img src="https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/examples/bfs_30.svg" alt="example">
