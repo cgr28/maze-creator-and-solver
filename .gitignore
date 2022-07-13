@@ -163,3 +163,4 @@ cython_debug/
 lib64
 pyvenv.cfg
 maze.svg
+main.py

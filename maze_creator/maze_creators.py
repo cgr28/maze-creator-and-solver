@@ -5,7 +5,8 @@ from helpers import *
 
 class MazeCreators:
     @staticmethod
-    def hunt_and_kill(grid: Grid):
+    def hunt_and_kill(size: int):
+        grid = Grid(size)
 
         # checks whether cell can hunt
         # if possible returns move
