@@ -10,4 +10,4 @@ Change the value of ```OFFSET``` in [maze_drawer.py](https://github.com/cgr28/ma
 #### Change where position of where maze is drawn
 Change the value of ```POS_X``` or ```POS_Y``` in [maze_drawer.py](https://github.com/cgr28/maze-creator-and-solver/blob/main/maze_drawer.py)
 ## Examples
-Examples can be found in the [examples](https://github.com/cgr28/maze-creator-and-solver/examples) directory.
+Examples can be found in the [examples](https://github.com/cgr28/maze-creator-and-solver/tree/main/examples) directory.
