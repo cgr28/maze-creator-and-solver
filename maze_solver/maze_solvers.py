@@ -1,12 +1,8 @@
-from http.client import MOVED_PERMANENTLY
-from importlib.resources import path
 from grid import Grid
 from helpers import *
 from maze_solver.helpers import *
 import sys
 from collections import deque
-
-from maze_solver.helpers import get_heuristic
 
 
 class MazeSolvers:

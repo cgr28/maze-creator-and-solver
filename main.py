@@ -3,7 +3,7 @@ from maze_creator.maze_creators import MazeCreators
 from maze_solver.maze_solvers import MazeSolvers
 from grid import Grid
 
-SIZE = 5
+SIZE = 100
 START = (0, 0)  # default: solver starts at the top left of the maze
 END = (SIZE - 1, SIZE - 1)  # default: solver ends at bottom right of maze
 
