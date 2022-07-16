@@ -2,15 +2,21 @@ from grid import Grid
 import svgwrite
 
 OFFSET = 5  # determines how wide the path of the maze is
-POS_X = 20  # offsets the maze from the right
-POS_Y = 20  # offsets the maze from the top
-OUTPUT_FILE = "maze.svg"  # the path of the output file
+POS_X = 0  # offsets the maze from the right
+POS_Y = 0  # offsets the maze from the top
 
 
-def draw_maze(maze, path=None, vis=None):
+def draw_maze(maze, path=None, vis=None, output_file=None):
+    if output_file:
+        OUTPUT_FILE = output_file # the path of the output file
+    else:
+        OUTPUT_FILE = "maze.svg"
+
     canvas = svgwrite.Drawing(
-        OUTPUT_FILE, size=("100%", "100%"), profile="full"
+        OUTPUT_FILE, size=("100", "100"), profile="tiny"
     )
+
+    canvas.add(canvas.rect((POS_X, POS_Y), (POS_X + (OFFSET * maze.size), POS_Y + (OFFSET * maze.size)), fill="white", stroke_width=0))
 
     for i in range(maze.size):
         for j in range(maze.size):
@@ -78,4 +84,5 @@ def draw_maze(maze, path=None, vis=None):
         )
     )
 
-    canvas.save()
+    # canvas.save()
+    return canvas

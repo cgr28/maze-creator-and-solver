@@ -1,32 +1,57 @@
+#TODO fix COORS
+
 import sys
 sys.path.append(".")
 from flask import Flask
+from flask_cors import CORS
 from flask_restful import Resource, Api
 from maze_drawer import draw_maze
 from maze_creator.maze_creators import MazeCreators
 from maze_solver.maze_solvers import MazeSolvers
-from grid import Grid
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
-class HelloWorld(Resource):
+class MazeApi(Resource):
 
-    def get(self):
-        SIZE = 100
-        START = (0, 0)  # default: solver starts at the top left of the maze
-        END = (SIZE - 1, SIZE - 1)  # default: solver ends at bottom right of maze
+    def get(self, maze_type, size=20, search_type="dfs"):
+        if size > 100:
+            SIZE = 100
+        elif size < 5:
+            SIZE = 5
+        else:
+            SIZE = size
+            
+        START = (0, 0)
+        END = (SIZE - 1, SIZE - 1)
 
-        grid = Grid(SIZE)
-        maze = MazeCreators.hunt_and_kill(grid)
-        solution_path, vis_cells = MazeSolvers.dfs(maze, START, END)
-        # solution_path = MazeSolvers.a_star(maze, START, END)
-        # remove vis_cells to hide visited cells e.g. draw_maze(maze, solution_path)
-        # remove solution_path to hide the solutoin e.g. draw_maze(maze)
-        draw_maze(maze, solution_path, vis_cells)
-        return {'hello': 'world'}
+        if maze_type == "hunt-and-kill":
+            maze = MazeCreators.hunt_and_kill(SIZE)
+        else:
+            maze = MazeCreators.hunt_and_kill(SIZE)
+        if search_type == "dfs":
+            solution_path, vis_cells = MazeSolvers.dfs(maze, START, END)
+            visited_cells = len(vis_cells)
+            solution_length = len(solution_path)
+        elif search_type == "bfs":
+            solution_path, vis_cells = MazeSolvers.bfs(maze, START, END)
+            visited_cells = len(vis_cells)
+            solution_length = len(solution_path)
+        else:
+            solution_path, vis_cells = (None, None)
+            visited_cells = 0
+            solution_length = 0
 
-api.add_resource(HelloWorld, '/')
+        canvas = draw_maze(maze, solution_path, vis_cells, "./src/maze.svg")
+        return {
+                'maze': canvas.tostring(),
+                'num_of_cells': (SIZE ** 2),
+                'visited_cells': visited_cells,
+                'solution_length': solution_length
+                }
+
+api.add_resource(MazeApi, '/api/<string:maze_type>/<int:size>/<string:search_type>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="localhost", port=8080, debug=False)
