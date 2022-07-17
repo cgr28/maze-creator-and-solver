@@ -2,6 +2,7 @@
 A python program that creates mazes using the hunt and kill algorithm, then solves them using bfs or dfs.
 <img src="https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/examples/no_path_30.svg" alt="example">
 <img src="https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/examples/bfs_30.svg" alt="example">
+#### View at https://maze-creator-and-solver.herokuapp.com/
 ## Pre-requisites
 - [svgwrite](https://github.com/mozman/svgwrite) ```pip install svgwrite```
 ## How to
