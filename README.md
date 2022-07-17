@@ -8,7 +8,7 @@ A python program that creates mazes using the hunt and kill algorithm, then solv
 ## How to
 #### Change size of maze path
 Change the value of ```OFFSET``` in [maze_drawer.py](https://github.com/cgr28/maze-creator-and-solver/blob/main/maze_drawer.py)
-#### Change where position of where maze is drawn
+#### Change position of where maze is drawn
 Change the value of ```POS_X``` or ```POS_Y``` in [maze_drawer.py](https://github.com/cgr28/maze-creator-and-solver/blob/main/maze_drawer.py)
 ## Examples
 Examples can be found in the [examples](https://github.com/cgr28/maze-creator-and-solver/tree/main/examples) directory.
