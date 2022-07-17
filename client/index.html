@@ -105,7 +105,7 @@
         mazeContainer.innerHTML = "<div class='spinner-border' role='status'></div>"
         var creatorType = getSelectedRadio("creator");
         var solverType = getSelectedRadio("solver")
-        const response = await fetch('http://localhost:8080/api/' + creatorType + '/' + slider.value + '/' + solverType);
+        const response = await fetch('/api/' + creatorType + '/' + slider.value + '/' + solverType);
         const myJson = await response.json();
         mazeContainer.innerHTML = myJson.maze
         stats.innerHTML = "<p>Total cells in maze: " + myJson.num_of_cells + "</p><p>Total cells visited by solver: " + myJson.visited_cells + "</p><p>Total length of solution: " + myJson.solution_length + "</p>"
