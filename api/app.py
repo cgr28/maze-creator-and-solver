@@ -1,18 +1,16 @@
-#TODO fix COORS
-
 import sys
 sys.path.append(".")
 from flask import Flask, send_from_directory
 from flask_cors import CORS
-from maze_drawer import draw_maze
-from maze_creator.maze_creators import MazeCreators
-from maze_solver.maze_solvers import MazeSolvers
+from drawer.maze_drawers import Drawer
+from creator.maze_creators import MazeCreators
+from solver.maze_solvers import MazeSolvers
 
-app = Flask(__name__, static_folder="./client", static_url_path="")
-CORS(app)
+app = Flask(__name__, static_folder="./../client", static_url_path="")
+CORS(app, origin=["http://localhost:8080/", "https://maze-creator-and-solver.herokuapp.com/", "http://maze-creator-and-solver.herokuapp.com/"])
 
-@app.route('/api/<string:maze_type>/<int:size>/<string:search_type>')
-def Maze(maze_type, size=20, search_type="dfs"):
+@app.route('/api/<string:maze_type>/<int:size>/<string:search_type>/<int:vis>')
+def Maze(maze_type, size=20, search_type="dfs", vis=0):
     print(app.static_folder)
     if size > 100:
         SIZE = 100
@@ -26,22 +24,37 @@ def Maze(maze_type, size=20, search_type="dfs"):
 
     if maze_type == "hunt-and-kill":
         maze = MazeCreators.hunt_and_kill(SIZE)
+    elif maze_type == "growing-tree":
+        maze = MazeCreators.growing_tree(SIZE)
+    elif maze_type == "prims":
+        maze = MazeCreators.prims(SIZE)
     else:
         maze = MazeCreators.hunt_and_kill(SIZE)
-    if search_type == "dfs":
+
+    if search_type == "depth-first-search":
         solution_path, vis_cells = MazeSolvers.dfs(maze, START, END)
         visited_cells = len(vis_cells)
         solution_length = len(solution_path)
-    elif search_type == "bfs":
+    elif search_type == "breadth-first-search":
         solution_path, vis_cells = MazeSolvers.bfs(maze, START, END)
+        visited_cells = len(vis_cells)
+        solution_length = len(solution_path)
+    elif search_type == "best-first-search":
+        solution_path, vis_cells = MazeSolvers.best_first_search(maze, START, END)
+        visited_cells = len(vis_cells)
+        solution_length = len(solution_path)
+    elif search_type == "a-star":
+        solution_path, vis_cells = MazeSolvers.a_star(maze, START, END)
         visited_cells = len(vis_cells)
         solution_length = len(solution_path)
     else:
         solution_path, vis_cells = (None, None)
         visited_cells = 0
         solution_length = 0
+    if not vis:
+        vis_cells = []
 
-    canvas = draw_maze(maze, solution_path, vis_cells, "./src/maze.svg")
+    canvas = Drawer.draw(maze, solution_path, vis_cells)
     return {
             'maze': canvas.tostring(),
             'num_of_cells': (SIZE ** 2),
