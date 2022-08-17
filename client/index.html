@@ -116,6 +116,7 @@
         const mazeContainer = document.querySelector("#maze-container");
         const stats = document.querySelector("#stats");
         const vis = document.querySelector("#visited");
+        const btn = document.querySelector("#generate");
 
         const getSelectedRadio = (buttonName) => {
             var elems = document.getElementsByName(buttonName);
@@ -128,6 +129,7 @@
         };
 
         const userAction = async () => {
+            btn.disabled = true;
             mazeContainer.innerHTML =
                 "<div class='spinner-border' role='status'></div>";
             var creatorType = getSelectedRadio("creator");
@@ -154,6 +156,7 @@
 
             document.querySelector("svg").style.width = slider.value * 5;
             document.querySelector("svg").style.height = slider.value * 5;
+            btn.disabled = false;
         };
     </script>
 </html>
