@@ -40,11 +40,11 @@ class MazeCreators:
                     begin_hunt = False
                 else:
                     return grid
-    
+
     @staticmethod
     def growing_tree(height: int, width: int):
         grid = Grid(height, width)
-        row, col = (random.randint(0, height-1), random.randint(0, width-1))
+        row, col = (random.randint(0, height - 1), random.randint(0, width - 1))
         stack = []
 
         while True:
@@ -71,18 +71,21 @@ class MazeCreators:
                     return grid
             else:
                 row, col = new_pos
-        
+
     @staticmethod
     def prims(height: int, width: int):
-        row, col = (random.randint(0, height-1), random.randint(0, width-1)) # starting row and col
+        row, col = (
+            random.randint(0, height - 1),
+            random.randint(0, width - 1),
+        )  # starting row and col
         grid = Grid(height, width)
         curr_cell = (row, col)
-        adj_cells = [] # yet to visit adjacent cells
+        adj_cells = []  # yet to visit adjacent cells
         # adding cells that are adjacent to starting cell
         for move in [LEFT, RIGHT, UP, DOWN]:
-                if grid.can_remove_and_unvis(curr_cell, move):
-                    pot_pos = grid.get_pos(curr_cell, move)
-                    adj_cells.append(pot_pos)
+            if grid.can_remove_and_unvis(curr_cell, move):
+                pot_pos = grid.get_pos(curr_cell, move)
+                adj_cells.append(pot_pos)
 
         grid.mark_vis(curr_cell)
         while adj_cells:
@@ -116,5 +119,3 @@ class MazeCreators:
                     if not grid.is_vis(pot_pos) and (pot_pos not in adj_cells):
                         adj_cells.append(pot_pos)
         return grid
-            
-            

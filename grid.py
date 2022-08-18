@@ -1,6 +1,7 @@
 from helpers import *
 import random
 
+
 class Cell:
     def __init__(self):
         self.right = True
