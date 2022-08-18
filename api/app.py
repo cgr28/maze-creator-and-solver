@@ -11,7 +11,6 @@ CORS(app, origin=["http://localhost:8080/", "https://maze-creator-and-solver.her
 
 @app.route('/api/<string:maze_type>/<int:height>/<int:width>/<string:search_type>/<int:vis>')
 def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
-    print(app.static_folder)
     if height > 100:
         HEIGHT = 100
     elif height < 5:
@@ -75,4 +74,4 @@ def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=8080, debug=True)
+    app.run(host="localhost", port=8080, debug=False)
