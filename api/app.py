@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append(".")
 from flask import Flask, send_from_directory
 from flask_cors import CORS
@@ -7,9 +8,19 @@ from creator.maze_creators import MazeCreators
 from solver.maze_solvers import MazeSolvers
 
 app = Flask(__name__, static_folder="./../client", static_url_path="")
-CORS(app, origin=["http://localhost:8080/", "https://maze-creator-and-solver.herokuapp.com/", "http://maze-creator-and-solver.herokuapp.com/"])
+CORS(
+    app,
+    origin=[
+        "http://localhost:8080/",
+        "https://maze-creator-and-solver.herokuapp.com/",
+        "http://maze-creator-and-solver.herokuapp.com/",
+    ],
+)
 
-@app.route('/api/<string:maze_type>/<int:height>/<int:width>/<string:search_type>/<int:vis>')
+
+@app.route(
+    "/api/<string:maze_type>/<int:height>/<int:width>/<string:search_type>/<int:vis>"
+)
 def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
     if height > 100:
         HEIGHT = 100
@@ -17,14 +28,14 @@ def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
         HEIGHT = 5
     else:
         HEIGHT = height
-    
+
     if width > 100:
         WIDTH = 100
     elif width < 5:
         WIDTH = 5
     else:
         WIDTH = width
-        
+
     START = (0, 0)
     END = (HEIGHT - 1, WIDTH - 1)
 
@@ -62,16 +73,18 @@ def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
 
     canvas = Drawer.draw(maze, solution_path, vis_cells)
     return {
-            'maze': canvas.tostring(),
-            'height': (HEIGHT),
-            "width": (WIDTH),
-            'visited_cells': visited_cells,
-            'solution_length': solution_length
-            }
+        "maze": canvas.tostring(),
+        "height": (HEIGHT),
+        "width": (WIDTH),
+        "visited_cells": visited_cells,
+        "solution_length": solution_length,
+    }
 
-@app.route('/')
+
+@app.route("/")
 def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+    return send_from_directory(app.static_folder, "index.html")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(host="localhost", port=8080, debug=False)

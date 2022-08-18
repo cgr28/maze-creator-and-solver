@@ -2,23 +2,28 @@ from grid import Grid
 import svgwrite
 
 OFFSET = 5  # determines how wide the path of the maze is
-POS_X = 0 # offsets the maze from the right
-POS_Y = 0 # offsets the maze from the top
+POS_X = 0  # offsets the maze from the right
+POS_Y = 0  # offsets the maze from the top
+
 
 class Drawer:
-
     @staticmethod
     def draw(maze, path=None, vis=None, output_file=None):
         if output_file:
-            OUTPUT_FILE = output_file # the path of the output file
+            OUTPUT_FILE = output_file  # the path of the output file
         else:
             OUTPUT_FILE = "maze.svg"
 
-        canvas = svgwrite.Drawing(
-            OUTPUT_FILE, size=("100%", "100%"), profile="tiny"
-        )
+        canvas = svgwrite.Drawing(OUTPUT_FILE, size=("100%", "100%"), profile="tiny")
 
-        canvas.add(canvas.rect((POS_X, POS_Y), (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)), fill="white", stroke_width=0))
+        canvas.add(
+            canvas.rect(
+                (POS_X, POS_Y),
+                (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)),
+                fill="white",
+                stroke_width=0,
+            )
+        )
 
         for i in range(maze.height):
             for j in range(maze.width):
@@ -30,7 +35,7 @@ class Drawer:
                             (x + OFFSET, y),
                             (x + OFFSET, y + OFFSET),
                             stroke="black",
-                            stroke_width=.5
+                            stroke_width=0.5,
                         )
                     )
                 if maze.get_cell((i, j)).down:
@@ -39,7 +44,7 @@ class Drawer:
                             (x, y + OFFSET),
                             (x + OFFSET, y + OFFSET),
                             stroke="black",
-                            stroke_width=.5
+                            stroke_width=0.5,
                         )
                     )
 
@@ -54,7 +59,7 @@ class Drawer:
                         (OFFSET, OFFSET),
                         fill="orange",
                         opacity=0.2,
-                        stroke_width=0
+                        stroke_width=0,
                     )
                 )
 
@@ -69,7 +74,7 @@ class Drawer:
                         (OFFSET, OFFSET),
                         fill="green",
                         opacity=0.3,
-                        stroke_width=0
+                        stroke_width=0,
                     )
                 )
 
@@ -78,7 +83,7 @@ class Drawer:
                 (POS_X, POS_Y),
                 (POS_X + (OFFSET * maze.width), POS_Y),
                 stroke="black",
-                stroke_width=2
+                stroke_width=2,
             )
         )
         canvas.add(
@@ -86,7 +91,7 @@ class Drawer:
                 (POS_X, POS_Y),
                 (POS_X, POS_Y + (OFFSET * maze.height)),
                 stroke="black",
-                stroke_width=2
+                stroke_width=2,
             )
         )
         canvas.add(
@@ -94,7 +99,7 @@ class Drawer:
                 (POS_X, POS_Y + (OFFSET * maze.height)),
                 (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)),
                 stroke="black",
-                stroke_width=2
+                stroke_width=2,
             )
         )
         canvas.add(
@@ -102,10 +107,10 @@ class Drawer:
                 (POS_X + (OFFSET * maze.width), POS_Y),
                 (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)),
                 stroke="black",
-                stroke_width=2
+                stroke_width=2,
             )
         )
-        
+
         if output_file:
             canvas.save()
         return canvas

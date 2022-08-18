@@ -82,7 +82,9 @@ class MazeSolvers:
         while pot:
             min_cell_index = 0
             for i in range(len(pot)):
-                if Helpers.manhattan_distance(pot[i][:-1], end) <= Helpers.manhattan_distance(pot[min_cell_index][:-1], end):
+                if Helpers.manhattan_distance(
+                    pot[i][:-1], end
+                ) <= Helpers.manhattan_distance(pot[min_cell_index][:-1], end):
                     min_cell_index = i
             row, col, path = pot.pop(min_cell_index)
             pos = (row, col)
@@ -93,7 +95,7 @@ class MazeSolvers:
             if pos == end:
                 vis.add(pos)
                 return (path, list(vis))
-            
+
             vis.add(pos)
 
             if Helpers.can_move(maze, pos, UP):
@@ -117,7 +119,9 @@ class MazeSolvers:
 
     @staticmethod
     def a_star(maze: Grid, start: tuple, end: tuple):
-        open = [AStarHelpers.Cell(None, 0, Helpers.manhattan_distance(start, end), start)]
+        open = [
+            AStarHelpers.Cell(None, 0, Helpers.manhattan_distance(start, end), start)
+        ]
         closed = []
 
         while open:
@@ -127,7 +131,7 @@ class MazeSolvers:
             for i in range(len(open)):
                 if open[i].f <= open[min_cell_pos].f:
                     min_cell_pos = i
-                
+
             min_cell = open.pop(min_cell_pos)
             closed.append(min_cell)
 
@@ -138,7 +142,12 @@ class MazeSolvers:
                 if not Helpers.can_move(maze, min_cell.pos, dir):
                     continue
                 pot_pos = Helpers.move(min_cell.pos, dir)
-                pot = AStarHelpers.Cell(min_cell, min_cell.g+1, Helpers.manhattan_distance(pot_pos, end), pot_pos)
+                pot = AStarHelpers.Cell(
+                    min_cell,
+                    min_cell.g + 1,
+                    Helpers.manhattan_distance(pot_pos, end),
+                    pot_pos,
+                )
 
                 if AStarHelpers.contains_cell(pot, closed) != False:
                     continue
