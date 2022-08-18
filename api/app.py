@@ -9,27 +9,34 @@ from solver.maze_solvers import MazeSolvers
 app = Flask(__name__, static_folder="./../client", static_url_path="")
 CORS(app, origin=["http://localhost:8080/", "https://maze-creator-and-solver.herokuapp.com/", "http://maze-creator-and-solver.herokuapp.com/"])
 
-@app.route('/api/<string:maze_type>/<int:size>/<string:search_type>/<int:vis>')
-def Maze(maze_type, size=20, search_type="dfs", vis=0):
+@app.route('/api/<string:maze_type>/<int:height>/<int:width>/<string:search_type>/<int:vis>')
+def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
     print(app.static_folder)
-    if size > 100:
-        SIZE = 100
-    elif size < 5:
-        SIZE = 5
+    if height > 100:
+        HEIGHT = 100
+    elif height < 5:
+        HEIGHT = 5
     else:
-        SIZE = size
+        HEIGHT = height
+    
+    if width > 100:
+        WIDTH = 100
+    elif width < 5:
+        WIDTH = 5
+    else:
+        WIDTH = width
         
     START = (0, 0)
-    END = (SIZE - 1, SIZE - 1)
+    END = (HEIGHT - 1, WIDTH - 1)
 
     if maze_type == "hunt-and-kill":
-        maze = MazeCreators.hunt_and_kill(SIZE)
+        maze = MazeCreators.hunt_and_kill(HEIGHT, WIDTH)
     elif maze_type == "growing-tree":
-        maze = MazeCreators.growing_tree(SIZE)
+        maze = MazeCreators.growing_tree(HEIGHT, WIDTH)
     elif maze_type == "prims":
-        maze = MazeCreators.prims(SIZE)
+        maze = MazeCreators.prims(HEIGHT, WIDTH)
     else:
-        maze = MazeCreators.hunt_and_kill(SIZE)
+        maze = MazeCreators.hunt_and_kill(HEIGHT, WIDTH)
 
     if search_type == "depth-first-search":
         solution_path, vis_cells = MazeSolvers.depth_first_search(maze, START, END)
@@ -57,7 +64,8 @@ def Maze(maze_type, size=20, search_type="dfs", vis=0):
     canvas = Drawer.draw(maze, solution_path, vis_cells)
     return {
             'maze': canvas.tostring(),
-            'num_of_cells': (SIZE ** 2),
+            'height': (HEIGHT),
+            "width": (WIDTH),
             'visited_cells': visited_cells,
             'solution_length': solution_length
             }
@@ -67,4 +75,4 @@ def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=8080, debug=False)
+    app.run(host="localhost", port=8080, debug=True)

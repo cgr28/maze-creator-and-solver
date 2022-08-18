@@ -82,7 +82,6 @@ class MazeSolvers:
         while pot:
             min_cell_index = 0
             for i in range(len(pot)):
-                # print(pot[i][0])
                 if Helpers.manhattan_distance(pot[i][:-1], end) <= Helpers.manhattan_distance(pot[min_cell_index][:-1], end):
                     min_cell_index = i
             row, col, path = pot.pop(min_cell_index)

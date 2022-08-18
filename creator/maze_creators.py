@@ -6,8 +6,8 @@ from creator.helpers import *
 
 class MazeCreators:
     @staticmethod
-    def hunt_and_kill(size: int):
-        grid = Grid(size)
+    def hunt_and_kill(height: int, width: int):
+        grid = Grid(height, width)
         stack = [(0, 0)]
         begin_hunt = False
         while True:
@@ -27,14 +27,13 @@ class MazeCreators:
                 if grid.can_remove_and_unvis((row, col), move):
                     begin_hunt = False
                     new = grid.remove_wall((row, col), move)
-                    newRow, newCol = new
                     stack.append(new)
                     break
             grid.mark_vis((row, col))
 
             if begin_hunt:
-                hunt_pos, move = HuntAndKillHelpers.hunt(size, grid)
-                # print("hunt ", hunt_pos, move)
+                hunt_pos, move = HuntAndKillHelpers.hunt(height, width, grid)
+
                 if hunt_pos:
                     pos = grid.remove_wall(hunt_pos, move)
                     stack.append(pos)
@@ -43,9 +42,9 @@ class MazeCreators:
                     return grid
     
     @staticmethod
-    def growing_tree(size: int):
-        grid = Grid(size)
-        row, col = (random.randint(0, size-1), random.randint(0, size-1))
+    def growing_tree(height: int, width: int):
+        grid = Grid(height, width)
+        row, col = (random.randint(0, height-1), random.randint(0, width-1))
         stack = []
 
         while True:
@@ -74,9 +73,9 @@ class MazeCreators:
                 row, col = new_pos
         
     @staticmethod
-    def prims(size: int):
-        row, col = (random.randint(0, size-1), random.randint(0, size-1)) # starting row and col
-        grid = Grid(size)
+    def prims(height: int, width: int):
+        row, col = (random.randint(0, height-1), random.randint(0, width-1)) # starting row and col
+        grid = Grid(height, width)
         curr_cell = (row, col)
         adj_cells = [] # yet to visit adjacent cells
         # adding cells that are adjacent to starting cell

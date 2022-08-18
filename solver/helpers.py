@@ -36,10 +36,10 @@ class Helpers:
                 return False
 
         row, col = Helpers.move(pos, direction)
-        if col < 0 or col >= maze.size:
+        if col < 0 or col >= maze.width:
             return False
 
-        if row < 0 or row >= maze.size:
+        if row < 0 or row >= maze.height:
             return False
 
         return True

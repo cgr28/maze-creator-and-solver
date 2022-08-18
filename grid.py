@@ -12,9 +12,10 @@ class Cell:
 
 
 class Grid:
-    def __init__(self, size):
-        self.grid = [[Cell() for i in range(size)] for j in range(size)]
-        self.size = size
+    def __init__(self, height, width):
+        self.grid = [[Cell() for i in range(width)] for j in range(height)]
+        self.height = height
+        self.width = width
 
     def get_cell(self, pos):
         row, col = pos
@@ -38,16 +39,15 @@ class Grid:
     # ensures that pos isn't out of bounds
     def valid_pos(self, pos):
         pot_row, pot_col = pos
-        if pot_row < 0 or pot_row >= self.size:
+        if pot_row < 0 or pot_row >= self.height:
             return False
-        if pot_col < 0 or pot_col >= self.size:
+        if pot_col < 0 or pot_col >= self.width:
             return False
         return True
 
     # checks if a wall can be removed
     def can_remove(self, pos, wall):
         pot = self.get_pos(pos, wall)  # potential position
-        pot_row, pot_col = pot
 
         if not self.valid_pos(pot):
             return False

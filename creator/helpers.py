@@ -30,9 +30,9 @@ class HuntAndKillHelpers:
                 return None
 
     @staticmethod
-    def hunt(size, grid):
-        for i in range(size):
-            for j in range(size):
+    def hunt(height, width, grid):
+        for i in range(height):
+            for j in range(width):
                 move = HuntAndKillHelpers.can_hunt((i, j), grid)
                 if move:
                     return ((i, j), move)

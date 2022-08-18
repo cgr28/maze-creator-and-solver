@@ -18,10 +18,10 @@ class Drawer:
             OUTPUT_FILE, size=("100%", "100%"), profile="tiny"
         )
 
-        canvas.add(canvas.rect((POS_X, POS_Y), (POS_X + (OFFSET * maze.size), POS_Y + (OFFSET * maze.size)), fill="white", stroke_width=0))
+        canvas.add(canvas.rect((POS_X, POS_Y), (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)), fill="white", stroke_width=0))
 
-        for i in range(maze.size):
-            for j in range(maze.size):
+        for i in range(maze.height):
+            for j in range(maze.width):
                 y = i * OFFSET + POS_Y
                 x = j * OFFSET + POS_X
                 if maze.get_cell((i, j)).right:
@@ -76,7 +76,7 @@ class Drawer:
         canvas.add(
             canvas.line(
                 (POS_X, POS_Y),
-                (POS_X + (OFFSET * maze.size), POS_Y),
+                (POS_X + (OFFSET * maze.width), POS_Y),
                 stroke="black",
                 stroke_width=2
             )
@@ -84,23 +84,23 @@ class Drawer:
         canvas.add(
             canvas.line(
                 (POS_X, POS_Y),
-                (POS_X, POS_Y + (OFFSET * maze.size)),
+                (POS_X, POS_Y + (OFFSET * maze.height)),
                 stroke="black",
                 stroke_width=2
             )
         )
         canvas.add(
             canvas.line(
-                (POS_X, POS_Y + (OFFSET * maze.size)),
-                (POS_X + (OFFSET * maze.size), POS_Y + (OFFSET * maze.size)),
+                (POS_X, POS_Y + (OFFSET * maze.height)),
+                (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)),
                 stroke="black",
                 stroke_width=2
             )
         )
         canvas.add(
             canvas.line(
-                (POS_X + (OFFSET * maze.size), POS_Y),
-                (POS_X + (OFFSET * maze.size), POS_Y + (OFFSET * maze.size)),
+                (POS_X + (OFFSET * maze.width), POS_Y),
+                (POS_X + (OFFSET * maze.width), POS_Y + (OFFSET * maze.height)),
                 stroke="black",
                 stroke_width=2
             )
