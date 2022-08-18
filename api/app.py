@@ -32,11 +32,11 @@ def Maze(maze_type, size=20, search_type="dfs", vis=0):
         maze = MazeCreators.hunt_and_kill(SIZE)
 
     if search_type == "depth-first-search":
-        solution_path, vis_cells = MazeSolvers.dfs(maze, START, END)
+        solution_path, vis_cells = MazeSolvers.depth_first_search(maze, START, END)
         visited_cells = len(vis_cells)
         solution_length = len(solution_path)
     elif search_type == "breadth-first-search":
-        solution_path, vis_cells = MazeSolvers.bfs(maze, START, END)
+        solution_path, vis_cells = MazeSolvers.breadth_first_search(maze, START, END)
         visited_cells = len(vis_cells)
         solution_length = len(solution_path)
     elif search_type == "best-first-search":

@@ -7,7 +7,7 @@ from collections import deque
 
 class MazeSolvers:
     @staticmethod
-    def dfs(maze: Grid, start: tuple, end: tuple):
+    def depth_first_search(maze: Grid, start: tuple, end: tuple):
         start_row, start_col = start
         stack = [(start_row, start_col, [])]
         vis = set()
@@ -41,7 +41,7 @@ class MazeSolvers:
         return None  # there is no solution
 
     @staticmethod
-    def bfs(maze: Grid, start: tuple, end: tuple):
+    def breadth_first_search(maze: Grid, start: tuple, end: tuple):
         start_row, start_col = start
         que = deque([(start_row, start_col, [])])
         vis = set()
