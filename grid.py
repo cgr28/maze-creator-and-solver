@@ -1,5 +1,5 @@
 from helpers import *
-
+import random
 
 class Cell:
     def __init__(self):
@@ -8,12 +8,14 @@ class Cell:
         self.up = True
         self.down = True
         self.vis = False
+        self.val = random.random()
 
 
 class Grid:
-    def __init__(self, size):
-        self.grid = [[Cell() for i in range(size)] for j in range(size)]
-        self.size = size
+    def __init__(self, height, width):
+        self.grid = [[Cell() for i in range(width)] for j in range(height)]
+        self.height = height
+        self.width = width
 
     def get_cell(self, pos):
         row, col = pos
@@ -37,20 +39,28 @@ class Grid:
     # ensures that pos isn't out of bounds
     def valid_pos(self, pos):
         pot_row, pot_col = pos
-        if pot_row < 0 or pot_row >= self.size:
+        if pot_row < 0 or pot_row >= self.height:
             return False
-        if pot_col < 0 or pot_col >= self.size:
+        if pot_col < 0 or pot_col >= self.width:
             return False
         return True
 
-    # checks whether a wall can be removed
+    # checks if a wall can be removed
     def can_remove(self, pos, wall):
+        pot = self.get_pos(pos, wall)  # potential position
+
+        if not self.valid_pos(pot):
+            return False
+        return True
+
+    # checks whether a wall can be removed and is unvisitied
+    def can_remove_and_unvis(self, pos, wall):
         pot = self.get_pos(pos, wall)  # potential position
         pot_row, pot_col = pot
 
         if not self.valid_pos(pot):
             return False
-        if self.get_cell((pot_row, pot_col)).vis:
+        if self.is_vis((pot_row, pot_col)):
             return False
         return True
 
@@ -77,3 +87,10 @@ class Grid:
             self.get_cell((row, col)).down = False
             self.get_cell((pot_row, pot_col)).up = False
         return pot
+
+    # checks if a cell has been visited
+    def is_vis(self, pos):
+        return self.get_cell(pos).vis
+
+    def mark_vis(self, pos):
+        self.get_cell(pos).vis = True
