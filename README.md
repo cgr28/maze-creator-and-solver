@@ -3,7 +3,7 @@ Creates mazes with solutions using various algorithms and Python.<br/>
 View at https://maze-creator-and-solver.herokuapp.com/<br/>
 
 ## Pre-requisites
-All packages in [requirements.txt](https://github.com/cgr28/maze-creator-and-solver/blob/prod/requirements.txt) installed ```pip install -r requirements.txt```
+All packages in [requirements.txt](https://github.com/cgr28/maze-creator-and-solver/blob/main/requirements.txt) installed ```pip install -r requirements.txt```
 
 ## How to
 ### Change size of maze path
