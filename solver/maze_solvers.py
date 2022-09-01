@@ -1,7 +1,6 @@
 from grid import Grid
-from helpers import *
+from enums import Moves
 from solver.helpers import *
-import sys
 from collections import deque
 
 
@@ -25,17 +24,17 @@ class MazeSolvers:
 
             vis.add(pos)
 
-            if Helpers.can_move(maze, pos, UP):
-                new_row, new_col = Helpers.move(pos, UP)
+            if Helpers.can_move(maze, pos, Moves.UP):
+                new_row, new_col = Helpers.move(pos, Moves.UP)
                 stack.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, DOWN):
-                new_row, new_col = Helpers.move(pos, DOWN)
+            if Helpers.can_move(maze, pos, Moves.DOWN):
+                new_row, new_col = Helpers.move(pos, Moves.DOWN)
                 stack.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, LEFT):
-                new_row, new_col = Helpers.move(pos, LEFT)
+            if Helpers.can_move(maze, pos, Moves.LEFT):
+                new_row, new_col = Helpers.move(pos, Moves.LEFT)
                 stack.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, RIGHT):
-                new_row, new_col = Helpers.move(pos, RIGHT)
+            if Helpers.can_move(maze, pos, Moves.RIGHT):
+                new_row, new_col = Helpers.move(pos, Moves.RIGHT)
                 stack.append((new_row, new_col, path.copy()))
 
         return None  # there is no solution
@@ -58,17 +57,17 @@ class MazeSolvers:
 
             vis.add(pos)
 
-            if Helpers.can_move(maze, pos, UP):
-                new_row, new_col = Helpers.move(pos, UP)
+            if Helpers.can_move(maze, pos, Moves.UP):
+                new_row, new_col = Helpers.move(pos, Moves.UP)
                 que.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, DOWN):
-                new_row, new_col = Helpers.move(pos, DOWN)
+            if Helpers.can_move(maze, pos, Moves.DOWN):
+                new_row, new_col = Helpers.move(pos, Moves.DOWN)
                 que.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, LEFT):
-                new_row, new_col = Helpers.move(pos, LEFT)
+            if Helpers.can_move(maze, pos, Moves.LEFT):
+                new_row, new_col = Helpers.move(pos, Moves.LEFT)
                 que.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, RIGHT):
-                new_row, new_col = Helpers.move(pos, RIGHT)
+            if Helpers.can_move(maze, pos, Moves.RIGHT):
+                new_row, new_col = Helpers.move(pos, Moves.RIGHT)
                 que.append((new_row, new_col, path.copy()))
 
         return None  # there is no solution
@@ -98,20 +97,20 @@ class MazeSolvers:
 
             vis.add(pos)
 
-            if Helpers.can_move(maze, pos, UP):
-                new_row, new_col = Helpers.move(pos, UP)
+            if Helpers.can_move(maze, pos, Moves.UP):
+                new_row, new_col = Helpers.move(pos, Moves.UP)
                 if (new_row, new_col) not in vis:
                     pot.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, DOWN):
-                new_row, new_col = Helpers.move(pos, DOWN)
+            if Helpers.can_move(maze, pos, Moves.DOWN):
+                new_row, new_col = Helpers.move(pos, Moves.DOWN)
                 if (new_row, new_col) not in vis:
                     pot.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, LEFT):
-                new_row, new_col = Helpers.move(pos, LEFT)
+            if Helpers.can_move(maze, pos, Moves.LEFT):
+                new_row, new_col = Helpers.move(pos, Moves.LEFT)
                 if (new_row, new_col) not in vis:
                     pot.append((new_row, new_col, path.copy()))
-            if Helpers.can_move(maze, pos, RIGHT):
-                new_row, new_col = Helpers.move(pos, RIGHT)
+            if Helpers.can_move(maze, pos, Moves.RIGHT):
+                new_row, new_col = Helpers.move(pos, Moves.RIGHT)
                 if (new_row, new_col) not in vis:
                     pot.append((new_row, new_col, path.copy()))
 
@@ -138,7 +137,7 @@ class MazeSolvers:
             if min_cell.pos == end:
                 return min_cell.get_root(), AStarHelpers.vis_path(closed)
 
-            for dir in [UP, DOWN, LEFT, RIGHT]:
+            for dir in [Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT]:
                 if not Helpers.can_move(maze, min_cell.pos, dir):
                     continue
                 pot_pos = Helpers.move(min_cell.pos, dir)

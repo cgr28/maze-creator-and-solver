@@ -1,5 +1,5 @@
-from helpers import *
 import random
+from enums import Moves
 
 
 class Cell:
@@ -25,13 +25,13 @@ class Grid:
     # gets position to the left, right, up, or down of given pos
     def get_pos(self, pos, wall):
         row, col = pos
-        if wall == LEFT:
+        if wall == Moves.LEFT:
             pot = (row, col - 1)
-        elif wall == RIGHT:
+        elif wall == Moves.RIGHT:
             pot = (row, col + 1)
-        elif wall == UP:
+        elif wall == Moves.UP:
             pot = (row - 1, col)
-        elif wall == DOWN:
+        elif wall == Moves.DOWN:
             pot = (row + 1, col)
         else:
             return None
@@ -67,22 +67,22 @@ class Grid:
 
     def remove_wall(self, pos, wall):
         row, col = pos
-        if wall == LEFT:
+        if wall == Moves.LEFT:
             pot = (row, col - 1)
             pot_row, pot_col = pot
             self.get_cell((row, col)).left = False
             self.get_cell((pot_row, pot_col)).right = False
-        if wall == RIGHT:
+        if wall == Moves.RIGHT:
             pot = (row, col + 1)
             pot_row, pot_col = pot
             self.get_cell((row, col)).right = False
             self.get_cell((pot_row, pot_col)).left = False
-        if wall == UP:
+        if wall == Moves.UP:
             pot = (row - 1, col)
             pot_row, pot_col = pot
             self.get_cell((row, col)).up = False
             self.get_cell((pot_row, pot_col)).down = False
-        if wall == DOWN:
+        if wall == Moves.DOWN:
             pot = (row + 1, col)
             pot_row, pot_col = pot
             self.get_cell((row, col)).down = False

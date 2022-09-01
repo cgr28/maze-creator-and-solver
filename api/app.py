@@ -1,6 +1,7 @@
 import sys
 
 sys.path.append(".")
+print(sys.path)
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 from drawer.maze_drawers import Drawer

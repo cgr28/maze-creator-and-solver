@@ -1,17 +1,17 @@
-from helpers import *
+from enums import Moves
 
 
 class Helpers:
     @staticmethod
     def move(pos, direction):
         row, col = pos
-        if direction == RIGHT:
+        if direction == Moves.RIGHT:
             ret = (row, col + 1)
-        elif direction == LEFT:
+        elif direction == Moves.LEFT:
             ret = (row, col - 1)
-        elif direction == UP:
+        elif direction == Moves.UP:
             ret = (row - 1, col)
-        else:  # direction == DOWN
+        else:  # direction == Moves.DOWN
             ret = (row + 1, col)
 
         return ret
@@ -21,16 +21,16 @@ class Helpers:
     def can_move(maze, pos, direction):
         cell = maze.get_cell(pos)
 
-        if direction == RIGHT:
+        if direction == Moves.RIGHT:
             if cell.right:
                 return False
-        elif direction == LEFT:
+        elif direction == Moves.LEFT:
             if cell.left:
                 return False
-        elif direction == UP:
+        elif direction == Moves.UP:
             if cell.up:
                 return False
-        else:  # direction == DOWN
+        else:  # direction == Moves.DOWN
             if cell.down:
                 return False
 

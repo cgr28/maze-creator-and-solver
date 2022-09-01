@@ -1,7 +1,7 @@
 from grid import Grid
 import random
-from helpers import *
 from creator.helpers import *
+from enums import Moves
 
 
 class MazeCreators:
@@ -11,7 +11,7 @@ class MazeCreators:
         stack = [(0, 0)]
         begin_hunt = False
         while True:
-            options = [LEFT, RIGHT, UP, DOWN]
+            options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
             if not begin_hunt:
                 row, col = stack.pop()
 
@@ -51,7 +51,7 @@ class MazeCreators:
             begin_unravel = True
             stack.append((row, col))
             grid.mark_vis((row, col))
-            options = [LEFT, RIGHT, UP, DOWN]
+            options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
             while options:
                 if len(options) == 1:
                     index = 0
@@ -82,7 +82,7 @@ class MazeCreators:
         curr_cell = (row, col)
         adj_cells = []  # yet to visit adjacent cells
         # adding cells that are adjacent to starting cell
-        for move in [LEFT, RIGHT, UP, DOWN]:
+        for move in [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]:
             if grid.can_remove_and_unvis(curr_cell, move):
                 pot_pos = grid.get_pos(curr_cell, move)
                 adj_cells.append(pot_pos)
@@ -97,7 +97,7 @@ class MazeCreators:
             curr_cell = adj_cells.pop(index)
             grid.mark_vis(curr_cell)
 
-            options = [LEFT, RIGHT, UP, DOWN]
+            options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
             # removing a random wall
             while options:
                 if len(options) == 0:
@@ -113,7 +113,7 @@ class MazeCreators:
                         grid.remove_wall(curr_cell, move)
                         break
             # adding adjacent cells
-            for move in [LEFT, RIGHT, UP, DOWN]:
+            for move in [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]:
                 if grid.can_remove(curr_cell, move):
                     pot_pos = grid.get_pos(curr_cell, move)
                     if not grid.is_vis(pot_pos) and (pot_pos not in adj_cells):

@@ -1,12 +1,11 @@
-from os import stat
 import random
-from helpers import *
+from enums import Moves
 
 
 class HuntAndKillHelpers:
     @staticmethod
     def can_hunt(pos, grid):
-        options = [LEFT, RIGHT, UP, DOWN]
+        options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
         row, col = pos
         if grid.get_cell((row, col)).vis:
             return None
@@ -44,7 +43,7 @@ class GrowingTreeHelpers:
     def unravel(stack, grid):
         while stack:
             row, col = stack.pop()
-            options = [LEFT, RIGHT, UP, DOWN]
+            options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
 
             while options:
                 if len(options) == 0:
