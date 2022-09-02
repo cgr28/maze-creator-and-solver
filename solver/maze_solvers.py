@@ -5,6 +5,8 @@ from collections import deque
 
 
 class MazeSolvers:
+    """A collection of maze solvers."""
+
     @staticmethod
     def depth_first_search(maze: Grid, start: tuple, end: tuple):
         """Gets the depth first search solution to a maze. Solution not guaranteed to be optimal.
