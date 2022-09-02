@@ -1,4 +1,3 @@
-from grid import Grid
 import svgwrite
 
 OFFSET = 5  # determines how wide the path of the maze is
@@ -9,6 +8,17 @@ POS_Y = 0  # offsets the maze from the top
 class Drawer:
     @staticmethod
     def draw(maze, path=None, vis=None, output_file=None):
+        """Draws the maze as an svg.
+
+        Args:
+            maze (Grid): The maze to be drawn.
+            path (list, optional): The path to the solution.  If None, solution path won't be drawn. Defaults to None.
+            vis (list, optional): The cells visited when finding solution.  If None, visited cells won't be marked. Defaults to None.
+            output_file (string, optional): The path to the output file.  If None, it won't be saved. Defaults to None.
+
+        Returns:
+            svgwrite.Drawing
+        """
         if output_file:
             OUTPUT_FILE = output_file  # the path of the output file
         else:

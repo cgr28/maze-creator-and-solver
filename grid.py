@@ -1,44 +1,76 @@
-import random
 from enums import Moves
 
 
 class Cell:
+    """A cell containing four walls.
+    """
     def __init__(self):
         self.right = True
         self.left = True
         self.up = True
         self.down = True
         self.vis = False
-        self.val = random.random()
 
 
 class Grid:
+    """A grid of cells, that will be made into a maze.
+    """
     def __init__(self, height, width):
+        """
+        Args:
+            height (int): Height of grid.
+            width (int): Width of grid.
+        """
         self.grid = [[Cell() for i in range(width)] for j in range(height)]
         self.height = height
         self.width = width
 
     def get_cell(self, pos):
+        """Gets the cell at a given position in the grid.
+
+        Args:
+            pos (tuple): Position.
+
+        Returns:
+            Cell: The cell at the given position.
+        """
         row, col = pos
         return self.grid[row][col]
 
-    # gets position to the left, right, up, or down of given pos
-    def get_pos(self, pos, wall):
+    def get_pos(self, pos, direction):
+        """Gets position to the left, right, up, or down of a given position.
+
+        Args:
+            pos (tuple): Starting position.
+            direction (int): The direction to get the new position.
+
+        Returns:
+            tuple: New position.
+                or
+            None: Invalid direction given.
+        """
         row, col = pos
-        if wall == Moves.LEFT:
+        if direction == Moves.LEFT:
             pot = (row, col - 1)
-        elif wall == Moves.RIGHT:
+        elif direction == Moves.RIGHT:
             pot = (row, col + 1)
-        elif wall == Moves.UP:
+        elif direction == Moves.UP:
             pot = (row - 1, col)
-        elif wall == Moves.DOWN:
+        elif direction == Moves.DOWN:
             pot = (row + 1, col)
         else:
             return None
         return pot
 
-    # ensures that pos isn't out of bounds
     def valid_pos(self, pos):
+        """Ensures position isn't out of bounds.
+
+        Args:
+            pos (tuple): Position.
+
+        Returns:
+            bool
+        """
         pot_row, pot_col = pos
         if pot_row < 0 or pot_row >= self.height:
             return False
@@ -46,16 +78,32 @@ class Grid:
             return False
         return True
 
-    # checks if a wall can be removed
     def can_remove(self, pos, wall):
+        """Checks if a wall can be removed.
+
+        Args:
+            pos (tuple): Position.
+            wall (int): Wall to be checked for removal.
+
+        Returns:
+            bool
+        """
         pot = self.get_pos(pos, wall)  # potential position
 
         if not self.valid_pos(pot):
             return False
         return True
 
-    # checks whether a wall can be removed and is unvisitied
     def can_remove_and_unvis(self, pos, wall):
+        """Checks if a wall can be removed and if its unvisited.
+
+        Args:
+            pos (tuple): Position.
+            wall (int): Wall to be checked for removal.
+
+        Returns:
+            bool
+        """
         pot = self.get_pos(pos, wall)  # potential position
         pot_row, pot_col = pot
 
@@ -66,6 +114,15 @@ class Grid:
         return True
 
     def remove_wall(self, pos, wall):
+        """Removes bordering walls between two cells.
+
+        Args:
+            pos (tuple): Position.
+            wall (int): Wall to be removed.
+
+        Returns:
+            tuple: Position of cell in the direction of removed wall.
+        """
         row, col = pos
         if wall == Moves.LEFT:
             pot = (row, col - 1)
@@ -89,9 +146,21 @@ class Grid:
             self.get_cell((pot_row, pot_col)).up = False
         return pot
 
-    # checks if a cell has been visited
     def is_vis(self, pos):
+        """Checks if a cell has been visited.
+
+        Args:
+            pos (tuple): Position of cell.
+
+        Returns:
+            bool
+        """
         return self.get_cell(pos).vis
 
     def mark_vis(self, pos):
+        """Marks a cell as visited.
+
+        Args:
+            pos (tuple): Position of cell.
+        """
         self.get_cell(pos).vis = True

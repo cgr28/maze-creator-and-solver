@@ -1,7 +1,7 @@
 from enum import Enum
 
 class Moves(Enum):
-    """Enumeration of all moves that can be made in the game
+    """All moves that can be made in maze.
     """
     UP = 1
     DOWN = 2

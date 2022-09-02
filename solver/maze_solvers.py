@@ -7,6 +7,20 @@ from collections import deque
 class MazeSolvers:
     @staticmethod
     def depth_first_search(maze: Grid, start: tuple, end: tuple):
+        """Gets the depth first search solution to a maze. Solution not guaranteed to be optimal.  
+
+        Args:
+            maze (Grid): Maze that will searched for solution.
+            start (tuple): Starting position.
+            end (tuple): Ending position.
+
+        Returns:
+            tuple:
+                list: Contains the positions of cells in the solution path.
+                list: Contains the positions of visited cells.
+                    or
+            None: Couldn't find a solution.
+        """
         start_row, start_col = start
         stack = [(start_row, start_col, [])]
         vis = set()
@@ -41,6 +55,20 @@ class MazeSolvers:
 
     @staticmethod
     def breadth_first_search(maze: Grid, start: tuple, end: tuple):
+        """Gets the breadth first search solution to a maze.  Solution guaranteed to be optimal.  
+
+        Args:
+            maze (Grid): Maze that will searched for solution.
+            start (tuple): Starting position.
+            end (tuple): Ending position.
+
+        Returns:
+            tuple:
+                list: Contains the positions of cells in the solution path.
+                list: Contains the positions of visited cells.
+                    or
+            None: Couldn't find a solution.
+        """
         start_row, start_col = start
         que = deque([(start_row, start_col, [])])
         vis = set()
@@ -74,6 +102,20 @@ class MazeSolvers:
 
     @staticmethod
     def best_first_search(maze: Grid, start: tuple, end: tuple):
+        """Gets the best first search solution to a maze.  Solution not guaranteed to be optimal.  
+
+        Args:
+            maze (Grid): Maze that will searched for solution.
+            start (tuple): Starting position.
+            end (tuple): Ending position.
+
+        Returns:
+            tuple:
+                list: Contains the positions of cells in the solution path.
+                list: Contains the positions of visited cells.
+                    or
+            None: Couldn't find a solution.
+        """
         start_row, start_col = start
         pot = [(start_row, start_col, [])]
         vis = set()
@@ -118,6 +160,20 @@ class MazeSolvers:
 
     @staticmethod
     def a_star(maze: Grid, start: tuple, end: tuple):
+        """Gets A* solution to a maze.  Solution guaranteed to be optimal.  
+
+        Args:
+            maze (Grid): Maze that will searched for solution.
+            start (tuple): Starting position.
+            end (tuple): Ending position.
+
+        Returns:
+            tuple:
+                list: Contains the positions of cells in the solution path.
+                list: Contains the positions of visited cells.
+                    or
+            None: Couldn't find a solution.
+        """
         open = [
             AStarHelpers.Cell(None, 0, Helpers.manhattan_distance(start, end), start)
         ]
@@ -135,7 +191,7 @@ class MazeSolvers:
             closed.append(min_cell)
 
             if min_cell.pos == end:
-                return min_cell.get_root(), AStarHelpers.vis_path(closed)
+                return (min_cell.get_root(), AStarHelpers.vis_path(closed))
 
             for dir in [Moves.UP, Moves.DOWN, Moves.LEFT, Moves.RIGHT]:
                 if not Helpers.can_move(maze, min_cell.pos, dir):

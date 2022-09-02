@@ -5,8 +5,19 @@ from enums import Moves
 
 
 class MazeCreators:
+    """A collection of maze creators.
+    """
     @staticmethod
     def hunt_and_kill(height: int, width: int):
+        """Generates a Hunt and Kill maze.  Not guaranteed to generate a perfect maze (may be more than one solution).  One of the slower maze creators.
+
+        Args:
+            height (int): Height of maze.
+            width (int): Width of maze.
+
+        Returns:
+            Grid: Completed maze.
+        """
         grid = Grid(height, width)
         stack = [(0, 0)]
         begin_hunt = False
@@ -43,6 +54,15 @@ class MazeCreators:
 
     @staticmethod
     def growing_tree(height: int, width: int):
+        """Generates a Growing Tree maze.  Guaranteed to generate a perfect maze (only one solution).
+
+        Args:
+            height (int): Height of maze.
+            width (int): Width of maze.
+
+        Returns:
+            Grid: Completed maze.
+        """
         grid = Grid(height, width)
         row, col = (random.randint(0, height - 1), random.randint(0, width - 1))
         stack = []
@@ -74,6 +94,15 @@ class MazeCreators:
 
     @staticmethod
     def prims(height: int, width: int):
+        """Generates a Prims maze.  Guaranteed to generate a perfect maze (only one solution).
+
+        Args:
+            height (int): Height of maze.
+            width (int): Width of maze.
+
+        Returns:
+            Grid: Completed maze.
+        """
         row, col = (
             random.randint(0, height - 1),
             random.randint(0, width - 1),

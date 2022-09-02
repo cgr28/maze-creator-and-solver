@@ -3,8 +3,22 @@ from enums import Moves
 
 
 class HuntAndKillHelpers:
+    """A collection of helper methods for the Hunt and Kill algorithm.
+    """
+    
     @staticmethod
     def can_hunt(pos, grid):
+        """Decides if Hunt and Kill algorithm can begin \"hunt\".
+
+        Args:
+            pos (_type_): Position.
+            grid (_type_): Grid to be checked for hunt.
+
+        Returns:
+            None: Can't begin hunt.
+                or
+            int: Direction of move that should be used for hunt.
+        """
         options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
         row, col = pos
         if grid.get_cell((row, col)).vis:
@@ -30,6 +44,20 @@ class HuntAndKillHelpers:
 
     @staticmethod
     def hunt(height, width, grid):
+        """Completes the hunt for the Hunt and Kill algorithm.
+
+        Args:
+            height (_type_): Height of grid.
+            width (_type_): Width of grid.
+            grid (_type_): Grid where hunt will completed.
+
+        Returns:
+            tuple:
+                tuple: Position where kill should be continued from.
+                int: Next move that should be completed.
+                    or
+                None: Maze is complete.
+        """
         for i in range(height):
             for j in range(width):
                 move = HuntAndKillHelpers.can_hunt((i, j), grid)
@@ -39,8 +67,22 @@ class HuntAndKillHelpers:
 
 
 class GrowingTreeHelpers:
+    """A collection of helper methods for the Growing Tree algorithm.
+    """
+
     @staticmethod
     def unravel(stack, grid):
+        """Unravels the Growing Tree stack until it finds a valid cell.
+
+        Args:
+            stack (list): Stack that will be unraveled.
+            grid (Grid): The grid to unravel on.
+
+        Returns:
+            tuple: Position after the unraveling.
+                or
+            None: Maze is complete.
+        """
         while stack:
             row, col = stack.pop()
             options = [Moves.LEFT, Moves.RIGHT, Moves.UP, Moves.DOWN]
