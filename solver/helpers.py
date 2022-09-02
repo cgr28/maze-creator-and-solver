@@ -79,8 +79,8 @@ class Helpers:
 
 class AStarHelpers:
     class Cell:
-        """Represents a cell or state in A*.
-        """
+        """Represents a cell or state in A*."""
+
         def __init__(self, parent, g, h, pos):
             """
             Args:

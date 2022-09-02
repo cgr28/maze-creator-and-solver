@@ -3,9 +3,8 @@ from enums import Moves
 
 
 class HuntAndKillHelpers:
-    """A collection of helper methods for the Hunt and Kill algorithm.
-    """
-    
+    """A collection of helper methods for the Hunt and Kill algorithm."""
+
     @staticmethod
     def can_hunt(pos, grid):
         """Decides if Hunt and Kill algorithm can begin \"hunt\".
@@ -67,8 +66,7 @@ class HuntAndKillHelpers:
 
 
 class GrowingTreeHelpers:
-    """A collection of helper methods for the Growing Tree algorithm.
-    """
+    """A collection of helper methods for the Growing Tree algorithm."""
 
     @staticmethod
     def unravel(stack, grid):

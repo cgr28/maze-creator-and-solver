@@ -5,8 +5,8 @@ from enums import Moves
 
 
 class MazeCreators:
-    """A collection of maze creators.
-    """
+    """A collection of maze creators."""
+
     @staticmethod
     def hunt_and_kill(height: int, width: int):
         """Generates a Hunt and Kill maze.  Not guaranteed to generate a perfect maze (may be more than one solution).  One of the slower maze creators.

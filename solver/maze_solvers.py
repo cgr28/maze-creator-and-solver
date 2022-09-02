@@ -7,7 +7,7 @@ from collections import deque
 class MazeSolvers:
     @staticmethod
     def depth_first_search(maze: Grid, start: tuple, end: tuple):
-        """Gets the depth first search solution to a maze. Solution not guaranteed to be optimal.  
+        """Gets the depth first search solution to a maze. Solution not guaranteed to be optimal.
 
         Args:
             maze (Grid): Maze that will searched for solution.
@@ -55,7 +55,7 @@ class MazeSolvers:
 
     @staticmethod
     def breadth_first_search(maze: Grid, start: tuple, end: tuple):
-        """Gets the breadth first search solution to a maze.  Solution guaranteed to be optimal.  
+        """Gets the breadth first search solution to a maze.  Solution guaranteed to be optimal.
 
         Args:
             maze (Grid): Maze that will searched for solution.
@@ -102,7 +102,7 @@ class MazeSolvers:
 
     @staticmethod
     def best_first_search(maze: Grid, start: tuple, end: tuple):
-        """Gets the best first search solution to a maze.  Solution not guaranteed to be optimal.  
+        """Gets the best first search solution to a maze.  Solution not guaranteed to be optimal.
 
         Args:
             maze (Grid): Maze that will searched for solution.
@@ -160,7 +160,7 @@ class MazeSolvers:
 
     @staticmethod
     def a_star(maze: Grid, start: tuple, end: tuple):
-        """Gets A* solution to a maze.  Solution guaranteed to be optimal.  
+        """Gets A* solution to a maze.  Solution guaranteed to be optimal.
 
         Args:
             maze (Grid): Maze that will searched for solution.

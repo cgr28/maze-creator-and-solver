@@ -2,8 +2,8 @@ from enums import Moves
 
 
 class Cell:
-    """A cell containing four walls.
-    """
+    """A cell containing four walls."""
+
     def __init__(self):
         self.right = True
         self.left = True
@@ -13,8 +13,8 @@ class Cell:
 
 
 class Grid:
-    """A grid of cells, that will be made into a maze.
-    """
+    """A grid of cells, that will be made into a maze."""
+
     def __init__(self, height, width):
         """
         Args:
