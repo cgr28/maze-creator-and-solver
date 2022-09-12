@@ -115,6 +115,7 @@
     const stats = document.querySelector("#stats");
     const vis = document.querySelector("#visited");
     const btn = document.querySelector("#generate");
+    const OFFSET = 5;
 
     const getSelectedRadio = (buttonName) => {
         var elems = document.getElementsByName(buttonName);
@@ -125,6 +126,68 @@
         }
         return null;
     };
+
+    const arrToMaze = (arr, width, height, solution) => {
+      var canvas = document.createElement('canvas');
+      canvas.setAttribute("width", width * OFFSET + 1);
+      canvas.setAttribute("height", height * OFFSET + 1);
+      var context = canvas.getContext('2d');
+      context.translate(0.5, 0.5);
+      
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+          let x = j * OFFSET;
+          let y = i * OFFSET;
+          let cell = arr[i][j]
+          if (cell == 1 || cell == 3) {
+            context.moveTo(x, y + OFFSET);
+            context.lineTo(x + OFFSET, y + OFFSET)
+          }
+          if (cell == 2 || cell == 3) {
+            context.moveTo(x + OFFSET, y);
+            context.lineTo(x + OFFSET, y + OFFSET)
+          }
+        }
+      }
+      context.moveTo(0, 0)
+      context.lineTo(OFFSET * width, 0)
+
+      context.moveTo(0, 0)
+      context.lineTo(0, OFFSET * height)
+
+      context.moveTo(OFFSET * width, 0)
+      context.lineTo(OFFSET * width, OFFSET * height)
+
+      context.moveTo(0, OFFSET * height)
+      context.lineTo(OFFSET * width, OFFSET * height)
+
+      context.strokeStyle = "black";
+      context.lineWidth = 0.5;
+      context.stroke();
+
+      context.lineWidth = 0
+      context.fillStyle = "rgb(0,128,0, 0.5)";
+ 
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+          let x = j * OFFSET;
+          let y = i * OFFSET;
+          let sol = solution[i][j]
+          if (sol == 1) {
+            context.fillStyle = "rgb(0,128,0, 0.3)";
+            context.fillRect(x, y, OFFSET, OFFSET)
+            context.stroke();
+          }
+          if (sol == 2) {
+            context.fillStyle = "rgb(255,165,0, 0.2)";
+            context.fillRect(x, y, OFFSET, OFFSET)
+            context.stroke();
+          }
+        }
+      }
+      context.stroke();
+      mazeContainer.appendChild(canvas)
+    }
 
     const userAction = async () => {
         btn.disabled = true;
@@ -145,7 +208,9 @@
         .then((res) => res.json())
         .then((data) => {
             const mazeInfo = data;
-            mazeContainer.innerHTML = mazeInfo.maze;
+            mazeContainer.innerHTML = "";
+            arrToMaze(mazeInfo.maze, width.value, height.value, mazeInfo.solution);
+
             stats.innerHTML = `<p>Total cells in maze:
                                     ${mazeInfo.width * mazeInfo.height}
                                 </p>
@@ -155,12 +220,12 @@
                                 <p>Total length of solution:
                                     ${mazeInfo.solution_length}
                                 </p>`;
-
-            document.querySelector("svg").style.width = mazeInfo.width * 5;
-            document.querySelector("svg").style.height = mazeInfo.height * 5;
+            mazeContainer.style.height = height.value * OFFSET + 0.5;
+            mazeContainer.style.width = width.value * OFFSET + 0.5;
             btn.disabled = false;
         })
         .catch((error) => {
+          console.log(error)
             btn.disabled = false
             mazeContainer.innerHTML = "Error fetching maze.";
             return

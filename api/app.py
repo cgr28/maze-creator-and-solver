@@ -7,6 +7,7 @@ from flask_cors import CORS
 from drawer.maze_drawers import Drawer
 from creator.maze_creators import MazeCreators
 from solver.maze_solvers import MazeSolvers
+from helpers import *
 
 app = Flask(__name__, static_folder="./../client", static_url_path="")
 CORS(
@@ -49,6 +50,8 @@ def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
     else:
         maze = MazeCreators.hunt_and_kill(HEIGHT, WIDTH)
 
+    maze_enums = Helpers.maze_to_enums(maze)
+
     if search_type == "depth-first-search":
         solution_path, vis_cells = MazeSolvers.depth_first_search(maze, START, END)
         visited_cells = len(vis_cells)
@@ -66,19 +69,21 @@ def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
         visited_cells = len(vis_cells)
         solution_length = len(solution_path)
     else:
-        solution_path, vis_cells = (None, None)
+        solution_path, vis_cells = ([], [])
         visited_cells = 0
         solution_length = 0
     if not vis:
         vis_cells = []
 
-    canvas = Drawer.draw(maze, solution_path, vis_cells)
+    solution_enums = Helpers.solution_to_enums(vis_cells, solution_path, maze)
+
     return {
-        "maze": canvas.tostring(),
+        "maze": maze_enums,
         "height": (HEIGHT),
         "width": (WIDTH),
         "visited_cells": visited_cells,
         "solution_length": solution_length,
+        "solution": solution_enums
     }
 
 
@@ -88,4 +93,4 @@ def serve():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8080, debug=False)
+    app.run(host="localhost", port=8080, debug=True)
