@@ -9,13 +9,14 @@ from creator.maze_creators import MazeCreators
 from solver.maze_solvers import MazeSolvers
 from helpers import *
 
-app = Flask(__name__, static_folder="./../client", static_url_path="")
+app = Flask(__name__, static_folder="./../frontend/build", static_url_path="")
 CORS(
     app,
     origin=[
         "http://localhost:8080/",
         "https://maze-creator-and-solver.herokuapp.com/",
         "http://maze-creator-and-solver.herokuapp.com/",
+        "http://localhost:3000/"
     ],
 )
 

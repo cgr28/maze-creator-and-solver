@@ -1,29 +1,29 @@
 * {
     background-color: #eaf9fe !important;
     font-family: "Courier New", Courier, monospace;
-  }
-  .nav-link {
+}
+.nav-link {
     color: black;
-  }
-  button {
+}
+button {
     border: 1px solid black;
     background-color: white !important;
     border-radius: 10px;
     border-width: 1px;
-  }
-  button:hover {
+}
+button:hover {
     background-color: gray !important;
     color: white;
-  }
-  input {
+}
+input {
     border: 1px solid black;
     background-color: white !important;
     border-radius: 10px;
     text-align: center;
-  }
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-  }
+}
