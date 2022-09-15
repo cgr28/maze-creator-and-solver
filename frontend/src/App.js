@@ -1,25 +1,60 @@
 import "./App.css";
 import React, { useState } from "react";
+import Maze from "./components/Maze"
+
+const solverTypes = [{name: "Breadth First Search", value: "breadth-first-search"}, {name: "Depth First Search", value: "depth-first-search"}, {name: "Best First Search", value: "best-first-search"}, {name: "A-Star", value: "a-star"}, {name: "None", value: "none"}]
 
 function App() {
-    const [solver, setSolver] = useState("breadth-first-search");
-    const [creator, setCreator] = useState("hunt-and-kill");
-
+    const [solvers, setSolvers] = useState(
+            new Array(solverTypes.length).fill(false)
+        );
+        const [creator, setCreator] = useState("hunt-and-kill");
+        const [width, setWidth] = useState(20)
+        const [height, setHeight] = useState(20)
+        const [vis, setVis] = useState(1)
+        const [maze, setMaze] = useState([])
+        const [solutions, setSolutions] = useState([])
+        
     const handleSubmit = (event) => {
       event.preventDefault()
-    }
+      console.log("creating maze...")
+      fetch(
+        `http://localhost:8080/api/${creator}/${height}/${width}/${solvers}/${vis}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+            setMaze(data.maze);
+            setSolutions(data.solution)
+        })
+        .catch((error) => {
+          console.log(error);
+          return;
+        });
 
+    }
+    
     const handleCreatorChange = (event) => {
         setCreator(event.target.value);
-        console.log(event.target.value);
     };
-    const handleSolverChange = (event) => {
-        setSolver(event.target.value);
+    const handleSolverChange = (pos) => {
+        const updatedSolvers = solvers.map((item, index) =>
+            index === pos ? !item : item
+        );
+        setSolvers(updatedSolvers)
     };
+    const handleWidthChange = (event) => {
+        setWidth(event.target.value)
+    };
+    const handleHeightChange = (event) => {
+        setHeight(event.target.value)
+    }
+    const handleVisChange = () => {
+        vis ? setVis(0) : setVis(1);
+    }
     return (
         <div className="App">
-            <form class="container mt-5" id="maze-form" onSubmit={handleSubmit}>
-                <p class="header">Maze generator algorithm</p>
+            <form className="container mt-5" id="maze-form" onSubmit={handleSubmit}>
+                <p className="header">Maze Creator Algorithm</p>
                 <input
                     id="hunt-and-kill"
                     name="creator"
@@ -28,7 +63,7 @@ function App() {
                     onChange={handleCreatorChange}
                     defaultChecked={true}
                 />
-                <label for="hunt-and-kill">Hunt and Kill</label>
+                <label htmlFor="hunt-and-kill">Hunt and Kill</label>
                 <input
                     id="growing-tree"
                     name="creator"
@@ -36,7 +71,7 @@ function App() {
                     value="growing-tree"
                     onChange={handleCreatorChange}
                 />
-                <label for="growing-tree">Growing Tree</label>
+                <label htmlFor="growing-tree">Growing Tree</label>
                 <input
                     id="prims"
                     name="creator"
@@ -44,72 +79,48 @@ function App() {
                     value="prims"
                     onChange={handleCreatorChange}
                 />
-                <label for="prims">Prims</label>
+                <label htmlFor="prims">Prims</label>
                 <br />
-                <p class="header mt-4">Maze solver algorithm</p>
-                <input
-                    id="breadth-first-search"
-                    name="solver"
-                    type="radio"
-                    value="breadth-first-search"
-                    defaultChecked={true}
-                    onChange={handleSolverChange}
-                />
-                <label for="breadth-first-search">Breadth First Search</label>
-                <input
-                    id="depth-first-search"
-                    name="solver"
-                    type="radio"
-                    value="depth-first-search"
-                    onChange={handleSolverChange}
-                />
-                <label for="depth-first-search">Depth First Search</label>
-                <input
-                    id="best-first-search"
-                    name="solver"
-                    type="radio"
-                    value="best-first-search"
-                    onChange={handleSolverChange}
-                />
-                <label for="best-first-search">Best First Search</label>
-                <input
-                    id="a-star"
-                    name="solver"
-                    type="radio"
-                    value="a-star"
-                    onChange={handleSolverChange}
-                />
-                <label for="a-star">A-Star</label>
-                <input
-                    id="none"
-                    name="solver"
-                    type="radio"
-                    value="none"
-                    onChange={handleSolverChange}
-                />
-                <label for="none">None</label>
+                <p className="header mt-4">Maze Solver Algorithm</p>
+                    {
+                        solverTypes.map(({ name, value }, index) => {
+                            return (<div>
+                                <input 
+                                    type="checkbox"
+                                    name="solver"
+                                    id={value}
+                                    value={value}
+                                    checked={solvers[index]}
+                                    onChange={() => handleSolverChange(index)}
+                                    />
+                                <label for={value}>{name}</label>
+                            </div>)
+                        })
+                    }
                 <br />
-                <p class="header mt-4">Customize maze</p>
+                <p className="header mt-4">Customize maze</p>
                 <input
                     type="number"
                     min="5"
                     max="100"
-                    value="20"
-                    class="slider"
+                    value={height}
+                    className="slider"
                     id="height"
+                    onChange={handleHeightChange}
                 />
-                <label for="height" id="slider-label">
+                <label htmlFor="height" id="slider-label">
                     Height (min: 5, max: 100)
                 </label>
                 <input
                     type="number"
                     min="5"
                     max="100"
-                    value="20"
-                    class="slider"
+                    value={width}
+                    className="slider"
                     id="width"
+                    onChange={handleWidthChange}
                 />
-                <label for="width" id="slider-label">
+                <label htmlFor="width" id="slider-label">
                     Width (min: 5, max: 100)
                 </label>
                 <input
@@ -118,22 +129,22 @@ function App() {
                     name="visited"
                     value="True"
                     defaultChecked={true}
+                    onChange={handleVisChange}
                 />
-                <label for="Visited">Visited Cells</label>
+                <label htmlFor="Visited">Visited Cells</label>
                 <br />
                 <button
                     type="submit"
                     form="maze-form"
                     id="generate"
-                    class="mt-4"
-                    onclick="userAction()"
+                    className="mt-4"
                 >
-                    Generate Maze
+                    Create Maze
                 </button>
             </form>
-            <div class="mt-5" id="stats"></div>
-            <div class="mt-5 mb-4 container" id="maze-container">
-                Click the button to generate a maze.
+            <div className="mt-5" id="stats"></div>
+            <div className="mt-5 mb-4 container" id="maze-container">
+                {(maze.length > 0) ? <Maze num={1} width={width} height={height} maze={maze} sol={solutions} /> : "Click the button above to create a maze."}
             </div>
         </div>
     );
