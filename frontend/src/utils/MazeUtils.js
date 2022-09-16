@@ -1,5 +1,5 @@
 export const arrToMaze = (arr, width, height, solution, key) => {
-  console.log("drawing maze")
+    console.log("drawing maze")
     const OFFSET = 5
     var canvas = document.createElement('canvas');
     canvas.setAttribute("width", width * OFFSET + 1);
@@ -61,3 +61,5 @@ export const arrToMaze = (arr, width, height, solution, key) => {
     context.stroke();
     return canvas
   }
+
+export const mazeKey = {"best-first-search": "Best First Search", "breadth-first-search": "Breadth First Search", "depth-first-search": "Depth First Search", "a-star": "A-Star", "none": "None"}

@@ -2,7 +2,7 @@ import sys
 
 sys.path.append(".")
 
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 from flask_cors import CORS
 from drawer.maze_drawers import Drawer
 from creator.maze_creators import MazeCreators
@@ -22,9 +22,16 @@ CORS(
 
 
 @app.route(
-    "/api/<string:maze_type>/<int:height>/<int:width>/<string:search_type>/<int:vis>"
+    "/api/<string:maze_type>/<int:height>/<int:width>/<int:vis>",
+    methods=['GET']
 )
-def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
+def Maze(maze_type, height=20, width=20, vis=0):
+    args = request.args
+    try:
+        solvers = args.getlist("solver")
+    except:
+        solvers = ["none"]
+        
     if height > 100:
         HEIGHT = 100
     elif height < 5:
@@ -52,40 +59,43 @@ def Maze(maze_type, height=20, width=20, search_type="dfs", vis=0):
         maze = MazeCreators.hunt_and_kill(HEIGHT, WIDTH)
 
     maze_enums = Helpers.maze_to_enums(maze)
+    solutions = []
 
-    if search_type == "depth-first-search":
-        solution_path, vis_cells = MazeSolvers.depth_first_search(maze, START, END)
-        visited_cells = len(vis_cells)
-        solution_length = len(solution_path)
-    elif search_type == "breadth-first-search":
-        solution_path, vis_cells = MazeSolvers.breadth_first_search(maze, START, END)
-        visited_cells = len(vis_cells)
-        solution_length = len(solution_path)
-    elif search_type == "best-first-search":
-        solution_path, vis_cells = MazeSolvers.best_first_search(maze, START, END)
-        visited_cells = len(vis_cells)
-        solution_length = len(solution_path)
-    elif search_type == "a-star":
-        solution_path, vis_cells = MazeSolvers.a_star(maze, START, END)
-        visited_cells = len(vis_cells)
-        solution_length = len(solution_path)
-    else:
-        solution_path, vis_cells = ([], [])
-        visited_cells = 0
-        solution_length = 0
-    if not vis:
-        vis_cells = []
+    for search_type in solvers:
+        if search_type == "depth-first-search":
+            solution_path, vis_cells = MazeSolvers.depth_first_search(maze, START, END)
+            visited_cells = len(vis_cells)
+            solution_length = len(solution_path)
+        elif search_type == "breadth-first-search":
+            solution_path, vis_cells = MazeSolvers.breadth_first_search(maze, START, END)
+            visited_cells = len(vis_cells)
+            solution_length = len(solution_path)
+        elif search_type == "best-first-search":
+            solution_path, vis_cells = MazeSolvers.best_first_search(maze, START, END)
+            visited_cells = len(vis_cells)
+            solution_length = len(solution_path)
+        elif search_type == "a-star":
+            solution_path, vis_cells = MazeSolvers.a_star(maze, START, END)
+            visited_cells = len(vis_cells)
+            solution_length = len(solution_path)
+        else:
+            solution_path, vis_cells = ([], [])
+            visited_cells = 0
+            solution_length = 0
+        if not vis:
+            vis_cells = []
+        solution_enums = Helpers.solution_to_enums(vis_cells, solution_path, maze)
+        solutions.append({"search_type": search_type, "visited_cells": visited_cells, "solution_length": solution_length, "solution": solution_enums})
+        
 
-    solution_enums = Helpers.solution_to_enums(vis_cells, solution_path, maze)
-
-    return {
+    response = {
         "maze": maze_enums,
         "height": (HEIGHT),
         "width": (WIDTH),
-        "visited_cells": visited_cells,
-        "solution_length": solution_length,
-        "solution": solution_enums
+        "solutions": solutions
     }
+    print(response)
+    return response
 
 
 @app.route("/")

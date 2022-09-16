@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
+import { getSolversQuery } from "./utils/Utils";
 import Maze from "./components/Maze"
 
 const solverTypes = [{name: "Breadth First Search", value: "breadth-first-search"}, {name: "Depth First Search", value: "depth-first-search"}, {name: "Best First Search", value: "best-first-search"}, {name: "A-Star", value: "a-star"}, {name: "None", value: "none"}]
@@ -12,19 +13,20 @@ function App() {
         const [width, setWidth] = useState(20)
         const [height, setHeight] = useState(20)
         const [vis, setVis] = useState(1)
-        const [maze, setMaze] = useState([])
+        const [maze, setMaze] = useState()
         const [solutions, setSolutions] = useState([])
         
     const handleSubmit = (event) => {
       event.preventDefault()
       console.log("creating maze...")
+      const solverParams = getSolversQuery(solvers, solverTypes);
       fetch(
-        `http://localhost:8080/api/${creator}/${height}/${width}/${solvers}/${vis}`
+        `http://localhost:8080/api/${creator}/${height}/${width}/${vis}${solverParams}`
       )
         .then((res) => res.json())
         .then((data) => {
             setMaze(data.maze);
-            setSolutions(data.solution)
+            setSolutions(data.solutions)
         })
         .catch((error) => {
           console.log(error);
@@ -84,7 +86,7 @@ function App() {
                 <p className="header mt-4">Maze Solver Algorithm</p>
                     {
                         solverTypes.map(({ name, value }, index) => {
-                            return (<div>
+                            return (<div key={index}>
                                 <input 
                                     type="checkbox"
                                     name="solver"
@@ -93,7 +95,7 @@ function App() {
                                     checked={solvers[index]}
                                     onChange={() => handleSolverChange(index)}
                                     />
-                                <label for={value}>{name}</label>
+                                <label htmlFor={value}>{name}</label>
                             </div>)
                         })
                     }
@@ -139,12 +141,19 @@ function App() {
                     id="generate"
                     className="mt-4"
                 >
-                    Create Maze
+                    Create Maze(s)
                 </button>
             </form>
             <div className="mt-5" id="stats"></div>
             <div className="mt-5 mb-4 container" id="maze-container">
-                {(maze.length > 0) ? <Maze num={1} width={width} height={height} maze={maze} sol={solutions} /> : "Click the button above to create a maze."}
+                {maze ? 
+                    solutions.map((solution) => {
+                        return (
+                            <Maze width={width} height={height} maze={maze} solInfo={solution} />
+                        )
+                    })
+                        : 
+                    "Click the button above to create a maze."}
             </div>
         </div>
     );
