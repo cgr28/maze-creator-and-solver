@@ -94,7 +94,7 @@ def Maze(maze_type, height=20, width=20, vis=0):
         "width": (WIDTH),
         "solutions": solutions
     }
-    print(response)
+
     return response
 
 
