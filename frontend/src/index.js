@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
-import MainNav from "./components/MainNav"
+import Nav from "./components/Nav"
+import Footer from './components/Footer';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <MainNav />
+    <Nav />
     <App />
+    <Footer />
   </React.StrictMode>
 );
 

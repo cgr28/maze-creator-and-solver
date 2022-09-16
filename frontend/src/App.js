@@ -1,25 +1,31 @@
 import "./App.css";
 import React, { useState } from "react";
-import { getSolversQuery } from "./utils/Utils";
+import { getSolversQuery, solverTypes } from "./utils/Utils";
 import Maze from "./components/Maze"
-
-const solverTypes = [{name: "Breadth First Search", value: "breadth-first-search"}, {name: "Depth First Search", value: "depth-first-search"}, {name: "Best First Search", value: "best-first-search"}, {name: "A-Star", value: "a-star"}, {name: "None", value: "none"}]
+import Header from "./components/Header";
+import Checkbox from "./components/Checkbox";
+import NumInput from "./components/NumInput";
+import Radio from "./components/Radio";
 
 function App() {
     const [solvers, setSolvers] = useState(
             new Array(solverTypes.length).fill(false)
         );
-        const [creator, setCreator] = useState("hunt-and-kill");
-        const [width, setWidth] = useState(20)
-        const [height, setHeight] = useState(20)
-        const [vis, setVis] = useState(1)
-        const [maze, setMaze] = useState()
-        const [solutions, setSolutions] = useState([])
+    const [creator, setCreator] = useState("hunt-and-kill");
+    const [width, setWidth] = useState(20)
+    const [height, setHeight] = useState(20)
+    const [vis, setVis] = useState(1)
+    const [maze, setMaze] = useState()
+    const [solutions, setSolutions] = useState([])
+    const [error, setError] = useState(false)
         
     const handleSubmit = (event) => {
       event.preventDefault()
       console.log("creating maze...")
       const solverParams = getSolversQuery(solvers, solverTypes);
+      if (!solverParams) {
+
+      }
       fetch(
         `http://localhost:8080/api/${creator}/${height}/${width}/${vis}${solverParams}`
       )
@@ -56,84 +62,25 @@ function App() {
     return (
         <div className="App">
             <form className="container mt-5" id="maze-form" onSubmit={handleSubmit}>
-                <p className="header">Maze Creator Algorithm</p>
-                <input
-                    id="hunt-and-kill"
-                    name="creator"
-                    type="radio"
-                    value="hunt-and-kill"
-                    onChange={handleCreatorChange}
-                    defaultChecked={true}
-                />
-                <label htmlFor="hunt-and-kill">Hunt and Kill</label>
-                <input
-                    id="growing-tree"
-                    name="creator"
-                    type="radio"
-                    value="growing-tree"
-                    onChange={handleCreatorChange}
-                />
-                <label htmlFor="growing-tree">Growing Tree</label>
-                <input
-                    id="prims"
-                    name="creator"
-                    type="radio"
-                    value="prims"
-                    onChange={handleCreatorChange}
-                />
-                <label htmlFor="prims">Prims</label>
+                <Header text={"Maze Creator Algorithms"} />
+
+                <Radio name={"hunt-and-kill"} value={"hunt-and-kill"} onChange={handleCreatorChange} defaultChecked={true} label={"Hunt and Kill"} group={"creator"} /><br/>
+                <Radio name={"growing-tree"} value={"growing-tree"} onChange={handleCreatorChange} label={"Growing Tree"} group={"creator"} /><br/>
+                <Radio name={"prims"} value={"prims"} onChange={handleCreatorChange} label={"Prims"} group={"creator"} /><br/>
                 <br />
-                <p className="header mt-4">Maze Solver Algorithm</p>
+                <Header text={"Maze Solver Algorithms"} />
                     {
                         solverTypes.map(({ name, value }, index) => {
                             return (<div key={index}>
-                                <input 
-                                    type="checkbox"
-                                    name="solver"
-                                    id={value}
-                                    value={value}
-                                    checked={solvers[index]}
-                                    onChange={() => handleSolverChange(index)}
-                                    />
-                                <label htmlFor={value}>{name}</label>
+                                <Checkbox name={value} label={name} value={value} checked={solvers[index]} onChange={() => handleSolverChange(index)} />
                             </div>)
                         })
                     }
                 <br />
-                <p className="header mt-4">Customize maze</p>
-                <input
-                    type="number"
-                    min="5"
-                    max="100"
-                    value={height}
-                    className="slider"
-                    id="height"
-                    onChange={handleHeightChange}
-                />
-                <label htmlFor="height" id="slider-label">
-                    Height (min: 5, max: 100)
-                </label>
-                <input
-                    type="number"
-                    min="5"
-                    max="100"
-                    value={width}
-                    className="slider"
-                    id="width"
-                    onChange={handleWidthChange}
-                />
-                <label htmlFor="width" id="slider-label">
-                    Width (min: 5, max: 100)
-                </label>
-                <input
-                    type="checkbox"
-                    id="visited"
-                    name="visited"
-                    value="True"
-                    defaultChecked={true}
-                    onChange={handleVisChange}
-                />
-                <label htmlFor="Visited">Visited Cells</label>
+                <Header text={"Customize Maze"} />
+                <NumInput min={5} max={100} value={height} name={"height"} onChange={handleHeightChange} label={"Height (min: 5, max: 100)"}/><br/>
+                <NumInput min={5} max={100} value={width} name={"width"} onChange={handleWidthChange} label={"Width (min: 5, max: 100)"}/><br/>
+                <Checkbox onChange={handleVisChange} name="visited" defaultChecked={true} label={"Visited Cells"}/><br/>
                 <br />
                 <button
                     type="submit"

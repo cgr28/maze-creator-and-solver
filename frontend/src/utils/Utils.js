@@ -17,3 +17,5 @@ export const getSolversQuery = (checked, solverTypes) => {
         return query
     }
 }
+
+export const solverTypes = [{name: "Breadth First Search", value: "breadth-first-search"}, {name: "Depth First Search", value: "depth-first-search"}, {name: "Best First Search", value: "best-first-search"}, {name: "A-Star", value: "a-star"}, {name: "None", value: "none"}]
