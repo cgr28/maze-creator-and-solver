@@ -1,4 +1,4 @@
-export const arrToMaze = (arr, width, height, solution, key) => {
+export const arrToMaze = (arr, width, height, solution) => {
     console.log("drawing maze")
     const OFFSET = 5
     var canvas = document.createElement('canvas');
@@ -59,6 +59,7 @@ export const arrToMaze = (arr, width, height, solution, key) => {
       }
     }
     context.stroke();
+    console.log("maze drawing complete")
     return canvas
   }
 
