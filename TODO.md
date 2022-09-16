@@ -1,0 +1,7 @@
+- README gifs
+- complete react change
+- redo UI
+- switch from localhost to the correct domain
+- cleanup code
+- white background for mazes
+- Docker
