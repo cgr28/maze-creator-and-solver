@@ -1,11 +1,14 @@
-export const arrToMaze = (arr, width, height, solution) => {
-    console.log("drawing maze")
+export const arrToMaze = (arr, width, height, solution, id) => {
     const OFFSET = 5
-    var canvas = document.createElement('canvas');
+    var canvas = document.getElementById(id);
     canvas.setAttribute("width", width * OFFSET + 1);
     canvas.setAttribute("height", height * OFFSET + 1);
     var context = canvas.getContext('2d');
     context.translate(0.5, 0.5);
+
+    context.fillStyle = "white";
+    context.fillRect(0, 0, width * OFFSET + 1, height * OFFSET + 1)
+    context.stroke();
     
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr[i].length; j++) {
@@ -59,7 +62,6 @@ export const arrToMaze = (arr, width, height, solution) => {
       }
     }
     context.stroke();
-    console.log("maze drawing complete")
     return canvas
   }
 

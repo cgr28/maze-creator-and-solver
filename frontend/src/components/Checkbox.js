@@ -1,7 +1,7 @@
 import React from "react";
 import "./Checkbox.scss"
 
-export default function Checkbox({ onChange, defaultChecked=false, checked, value, label, name }) {
+export default function Checkbox({ onChange, checked, value, label, name }) {
     return (
         <>
         <input
@@ -10,7 +10,6 @@ export default function Checkbox({ onChange, defaultChecked=false, checked, valu
         value={value}
         type="checkbox"
         checked={checked}
-        defaultChecked={defaultChecked}
         />
         <label htmlFor={name}>{label}</label>
         </>

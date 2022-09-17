@@ -16,6 +16,16 @@
   }
   #mazes {
     width: fit-content;
-    padding: 10px;
+  }
+  #error-message {
+    color: red;
+  }
+  #green {
+    color: green;
+    display: inline-block;
+  }
+  #yellow {
+    color: rgb(132, 112, 32);
+    display: inline-block;
   }
 }
