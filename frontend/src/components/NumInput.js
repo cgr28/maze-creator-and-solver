@@ -11,7 +11,7 @@ export default function NumInput({ name, value, onChange, min, max, label }) {
                 id={name}
                 value={value}
                 onChange={onChange}
-                className={"num-input"}
+                className={"num-input mt-1"}
             />
             <label htmlFor={name}>{label}</label>
         </>

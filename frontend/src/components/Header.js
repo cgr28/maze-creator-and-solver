@@ -3,7 +3,7 @@ import "./Header.scss"
 
 export default function Header({ text }) {
     return (
-        <div className="header my-3">
+        <div className="header mt-3">
             {text}
         </div>
     )
