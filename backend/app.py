@@ -1,6 +1,10 @@
+import sys
+
+sys.path.append("./backend")
+sys.path.append("./app")
+
 from flask import Flask, send_from_directory, request
 from flask_cors import CORS
-from drawer.maze_drawers import Drawer
 from creator.maze_creators import MazeCreators
 from solver.maze_solvers import MazeSolvers
 from helpers import *
