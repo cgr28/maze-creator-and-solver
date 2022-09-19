@@ -15,6 +15,7 @@ RUN mkdir ./api
 COPY ./backend ./api
 RUN pip install -r ./api/requirements.txt
 
+
 EXPOSE 8080
 WORKDIR /app/api
 CMD ["gunicorn", "-b", ":8080", "app:app"]

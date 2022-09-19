@@ -1,12 +1,8 @@
 services:
-  backend:
+  app:
     build:
       context: .
-      dockerfile: Dockerfile.backend
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    image: react-flask-app-client
+      dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "8080:8080"
+    image: maze-creator-image

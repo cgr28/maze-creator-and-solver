@@ -1,15 +1,10 @@
-import sys
-
-sys.path.append("./backend")
-sys.path.append("./app")
-
 from flask import Flask, send_from_directory, request
 from flask_cors import CORS
 from creator.maze_creators import MazeCreators
 from solver.maze_solvers import MazeSolvers
 from helpers import *
 
-app = Flask(__name__, static_folder="./../frontend/build", static_url_path="")
+app = Flask(__name__, static_folder="../build", static_url_path="/")
 CORS(
     app,
     origin=[
