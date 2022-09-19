@@ -17,5 +17,7 @@ RUN pip install -r ./api/requirements.txt
 
 
 EXPOSE 8080
+EXPOSE $PORT
+
 WORKDIR /app/api
 CMD ["gunicorn", "-b", ":8080", "app:app"]
