@@ -1,0 +1,31 @@
+.App {
+  #create-button {
+    background-color: white;
+    border: 1px solid black;
+  }
+  #create-button:hover {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+  }
+  #maze-form {
+    background-color: #f5f5f5;
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid black;
+  }
+  #mazes {
+    width: fit-content;
+  }
+  #error-message {
+    color: red;
+  }
+  #green {
+    color: green;
+    display: inline-block;
+  }
+  #yellow {
+    color: rgb(132, 112, 32);
+    display: inline-block;
+  }
+}
