@@ -1,9 +1,9 @@
 import sys
 
 sys.path.append(".")
-from drawer.maze_drawers import Drawer
-from creator.maze_creators import MazeCreators
-from solver.maze_solvers import MazeSolvers
+from backend.drawer.maze_drawers import Drawer
+from backend.creator.maze_creators import MazeCreators
+from backend.solver.maze_solvers import MazeSolvers
 
 # CONSTANTS
 HEIGHT = 30  # height of maze

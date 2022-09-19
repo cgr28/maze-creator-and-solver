@@ -11,22 +11,34 @@ CORS(
         "http://localhost:8080/",
         "https://maze-creator-and-solver.herokuapp.com/",
         "http://maze-creator-and-solver.herokuapp.com/",
-        "http://localhost:3000/"
+        "http://localhost:3000/",
     ],
 )
 
 
 @app.route(
-    "/api/<string:maze_type>/<int:height>/<int:width>/<int:vis>",
-    methods=['GET']
+    "/api/<string:creator>/<int:height>/<int:width>/<int:vis>", methods=["GET"]
 )
-def Maze(maze_type, height=20, width=20, vis=0):
+def Maze(creator, height=20, width=20, vis=0):
+    """Generates a maze and solutions using given parameters.
+
+    Args:
+        creator (str): The type of maze creator that will be used.
+        height (int, optional): The height of the maze. Defaults to 20.
+        width (int, optional): The width of the maze. Defaults to 20.
+        vis (int, optional): If 0 visited cells will be excluded. If 1 visited cells will be included. Defaults to 0.
+
+    Returns:
+        dict: API response.
+    """
     args = request.args
     try:
         solvers = args.getlist("solver")
+        if not solvers:
+            solvers = ["none"]
     except:
         solvers = ["none"]
-        
+
     if height > 100:
         HEIGHT = 100
     elif height < 5:
@@ -44,11 +56,11 @@ def Maze(maze_type, height=20, width=20, vis=0):
     START = (0, 0)
     END = (HEIGHT - 1, WIDTH - 1)
 
-    if maze_type == "hunt-and-kill":
+    if creator == "hunt-and-kill":
         maze = MazeCreators.hunt_and_kill(HEIGHT, WIDTH)
-    elif maze_type == "growing-tree":
+    elif creator == "growing-tree":
         maze = MazeCreators.growing_tree(HEIGHT, WIDTH)
-    elif maze_type == "prims":
+    elif creator == "prims":
         maze = MazeCreators.prims(HEIGHT, WIDTH)
     else:
         maze = MazeCreators.hunt_and_kill(HEIGHT, WIDTH)
@@ -56,38 +68,41 @@ def Maze(maze_type, height=20, width=20, vis=0):
     maze_enums = Helpers.maze_to_enums(maze)
     solutions = []
 
-    for search_type in solvers:
-        if search_type == "depth-first-search":
+    for solver in solvers:
+        if solver == "depth-first-search":
             solution_path, vis_cells = MazeSolvers.depth_first_search(maze, START, END)
-            visited_cells = len(vis_cells)
-            solution_length = len(solution_path)
-        elif search_type == "breadth-first-search":
-            solution_path, vis_cells = MazeSolvers.breadth_first_search(maze, START, END)
-            visited_cells = len(vis_cells)
-            solution_length = len(solution_path)
-        elif search_type == "best-first-search":
+        elif solver == "breadth-first-search":
+            solution_path, vis_cells = MazeSolvers.breadth_first_search(
+                maze, START, END
+            )
+        elif solver == "best-first-search":
             solution_path, vis_cells = MazeSolvers.best_first_search(maze, START, END)
-            visited_cells = len(vis_cells)
-            solution_length = len(solution_path)
-        elif search_type == "a-star":
+        elif solver == "a-star":
             solution_path, vis_cells = MazeSolvers.a_star(maze, START, END)
-            visited_cells = len(vis_cells)
-            solution_length = len(solution_path)
         else:
             solution_path, vis_cells = ([], [])
-            visited_cells = 0
-            solution_length = 0
+
+        num_visited_cells = len(vis_cells)
+        solution_length = len(solution_path)
+
         if not vis:
             vis_cells = []
+
         solution_enums = Helpers.solution_to_enums(vis_cells, solution_path, maze)
-        solutions.append({"search_type": search_type, "visited_cells": visited_cells, "solution_length": solution_length, "solution": solution_enums})
-        
+        solutions.append(
+            {
+                "search_type": solver,
+                "visited_cells": num_visited_cells,
+                "solution_length": solution_length,
+                "solution": solution_enums,
+            }
+        )
 
     response = {
         "maze": maze_enums,
         "height": (HEIGHT),
         "width": (WIDTH),
-        "solutions": solutions
+        "solutions": solutions,
     }
 
     return response
@@ -97,9 +112,11 @@ def Maze(maze_type, height=20, width=20, vis=0):
 def serve():
     return send_from_directory(app.static_folder, "index.html")
 
+
 @app.errorhandler(404)
 def page_not_found(e):
-  return send_from_directory(app.static_folder, "index.html")
+    """When there's a 404 error, return to the main page."""
+    return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == "__main__":

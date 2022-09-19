@@ -1,10 +1,10 @@
 import React from "react";
-import "./NumInput.scss"
+import "./NumInput.scss";
 
 export default function NumInput({ name, value, onChange, min, max, label }) {
     return (
         <>
-            <input 
+            <input
                 type={"number"}
                 min={min}
                 max={max}
@@ -15,5 +15,5 @@ export default function NumInput({ name, value, onChange, min, max, label }) {
             />
             <label htmlFor={name}>{label}</label>
         </>
-    )
+    );
 }

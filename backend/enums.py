@@ -9,6 +9,7 @@ class Moves(Enum):
     LEFT = 3
     RIGHT = 4
 
+
 class Walls:
     """Wall directions in maze for maze generation."""
 
@@ -16,6 +17,7 @@ class Walls:
     RIGHT = 2
     BOTH = 3
     NONE = 4
+
 
 class Solver:
     """Solution and visited for solution generation."""

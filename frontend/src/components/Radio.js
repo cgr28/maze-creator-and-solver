@@ -1,10 +1,17 @@
 import React from "react";
-import "./Radio.scss"
+import "./Radio.scss";
 
-export default function Radio({ name, label, value, onChange, defaultChecked, group }) {
+export default function Radio({
+    name,
+    label,
+    value,
+    onChange,
+    defaultChecked,
+    group,
+}) {
     return (
         <>
-            <input 
+            <input
                 type={"radio"}
                 id={name}
                 value={value}
@@ -14,5 +21,5 @@ export default function Radio({ name, label, value, onChange, defaultChecked, gr
             />
             <label htmlFor={name}>{label}</label>
         </>
-    )
+    );
 }
