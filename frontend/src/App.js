@@ -28,9 +28,7 @@ function App() {
             return;
         }
         setLoading(1);
-        fetch(
-            `/api/${creator}/${height}/${width}/${vis}${solverParams}`
-        )
+        fetch(`/api/${creator}/${height}/${width}/${vis}${solverParams}`)
             .then((res) => res.json())
             .then((data) => {
                 setMaze(data.maze);

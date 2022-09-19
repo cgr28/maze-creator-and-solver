@@ -1,7 +1,14 @@
 import React from "react";
 import "./Checkbox.scss";
 
-export default function Checkbox({ onChange, checked, value, label, name, disabled=false }) {
+export default function Checkbox({
+    onChange,
+    checked,
+    value,
+    label,
+    name,
+    disabled = false,
+}) {
     return (
         <>
             <input

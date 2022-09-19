@@ -1,7 +1,15 @@
 import React from "react";
 import "./NumInput.scss";
 
-export default function NumInput({ name, value, onChange, min, max, label, disabled=false }) {
+export default function NumInput({
+    name,
+    value,
+    onChange,
+    min,
+    max,
+    label,
+    disabled = false,
+}) {
     return (
         <>
             <input

@@ -8,7 +8,7 @@ export default function Radio({
     onChange,
     defaultChecked,
     group,
-    disabled=false
+    disabled = false,
 }) {
     return (
         <>
