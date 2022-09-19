@@ -97,6 +97,10 @@ def Maze(maze_type, height=20, width=20, vis=0):
 def serve():
     return send_from_directory(app.static_folder, "index.html")
 
+@app.errorhandler(404)
+def page_not_found(e):
+  return send_from_directory(app.static_folder, "index.html")
+
 
 if __name__ == "__main__":
     app.run(host="localhost", port=8080, debug=False)
