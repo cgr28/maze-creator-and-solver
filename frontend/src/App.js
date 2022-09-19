@@ -29,7 +29,7 @@ function App() {
         }
         setLoading(1);
         fetch(
-            `http://localhost:8080/api/${creator}/${height}/${width}/${vis}${solverParams}`
+            `/api/${creator}/${height}/${width}/${vis}${solverParams}`
         )
             .then((res) => res.json())
             .then((data) => {
