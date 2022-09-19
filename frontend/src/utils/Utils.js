@@ -27,8 +27,8 @@ export const getSolversQuery = (checked, solverTypes) => {
 // @param height: the height of the maze
 // @param solution: the a 2d array reperesenting the mazes solution
 // @param canvasId: the id of the canvas element where the maze will be drawn
-export const drawMaze = (maze, width, height, solution, canvasId) => {
-    const OFFSET = 5;
+export const drawMaze = (maze, width, height, solution, canvasId, offset=5) => {
+    const OFFSET = offset;
     var canvas = document.getElementById(canvasId);
     canvas.setAttribute("width", width * OFFSET + 1);
     canvas.setAttribute("height", height * OFFSET + 1);
@@ -44,6 +44,7 @@ export const drawMaze = (maze, width, height, solution, canvasId) => {
             let x = j * OFFSET;
             let y = i * OFFSET;
             let cell = maze[i][j];
+            let sol = solution[i][j];
             if (cell === 1 || cell === 3) {
                 context.moveTo(x, y + OFFSET);
                 context.lineTo(x + OFFSET, y + OFFSET);
@@ -52,8 +53,17 @@ export const drawMaze = (maze, width, height, solution, canvasId) => {
                 context.moveTo(x + OFFSET, y);
                 context.lineTo(x + OFFSET, y + OFFSET);
             }
+            if (sol === 1) {
+              context.fillStyle = "rgb(0,128,0, 0.3)";
+              context.fillRect(x, y, OFFSET, OFFSET);
+            }
+            if (sol === 2) {
+                context.fillStyle = "rgb(255,165,0, 0.2)";
+                context.fillRect(x, y, OFFSET, OFFSET);
+            }
         }
     }
+    
     context.moveTo(0, 0);
     context.lineTo(OFFSET * width, 0);
 
@@ -66,30 +76,7 @@ export const drawMaze = (maze, width, height, solution, canvasId) => {
     context.moveTo(0, OFFSET * height);
     context.lineTo(OFFSET * width, OFFSET * height);
 
-    context.strokeStyle = "black";
-    context.lineWidth = 0.5;
     context.stroke();
-
-    context.lineWidth = 0;
-    context.fillStyle = "rgb(0,128,0, 0.5)";
-
-    for (let i = 0; i < maze.length; i++) {
-        for (let j = 0; j < maze[i].length; j++) {
-            let x = j * OFFSET;
-            let y = i * OFFSET;
-            let sol = solution[i][j];
-            if (sol === 1) {
-                context.fillStyle = "rgb(0,128,0, 0.3)";
-                context.fillRect(x, y, OFFSET, OFFSET);
-                context.stroke();
-            }
-            if (sol === 2) {
-                context.fillStyle = "rgb(255,165,0, 0.2)";
-                context.fillRect(x, y, OFFSET, OFFSET);
-                context.stroke();
-            }
-        }
-    }
     context.stroke();
     return canvas;
 };
