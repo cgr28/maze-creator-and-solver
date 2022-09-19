@@ -88,6 +88,7 @@ function App() {
                             defaultChecked={true}
                             label={"Hunt and Kill"}
                             group={"creator"}
+                            disabled={loading}
                         />
                         <br />
                         <Radio
@@ -96,6 +97,7 @@ function App() {
                             onChange={handleCreatorChange}
                             label={"Growing Tree"}
                             group={"creator"}
+                            disabled={loading}
                         />
                         <br />
                         <Radio
@@ -104,6 +106,7 @@ function App() {
                             onChange={handleCreatorChange}
                             label={"Prims"}
                             group={"creator"}
+                            disabled={loading}
                         />
                         <br />
                         <Header text={"Maze Solver Algorithms"} />
@@ -118,6 +121,7 @@ function App() {
                                         onChange={() =>
                                             handleSolverChange(index)
                                         }
+                                        disabled={loading}
                                     />
                                 </div>
                             );
@@ -130,6 +134,7 @@ function App() {
                             name={"height"}
                             onChange={handleHeightChange}
                             label={"Height (min: 5, max: 100)"}
+                            disabled={loading}
                         />
                         <br />
                         <NumInput
@@ -139,6 +144,7 @@ function App() {
                             name={"width"}
                             onChange={handleWidthChange}
                             label={"Width (min: 5, max: 100)"}
+                            disabled={loading}
                         />
                         <br />
                         <Checkbox
@@ -146,6 +152,7 @@ function App() {
                             name="visited"
                             label={"Draw Visited Cells"}
                             checked={vis}
+                            disabled={loading}
                         />
                         <br />
                         <Header text={"Key"} />
@@ -160,6 +167,7 @@ function App() {
                             form="maze-form"
                             id="create-button"
                             className="mt-4"
+                            disabled={loading}
                         >
                             Create Maze(s)
                         </button>

@@ -8,6 +8,7 @@ export default function Radio({
     onChange,
     defaultChecked,
     group,
+    disabled=false
 }) {
     return (
         <>
@@ -18,6 +19,7 @@ export default function Radio({
                 onChange={onChange}
                 defaultChecked={defaultChecked}
                 name={group}
+                disabled={disabled}
             />
             <label htmlFor={name}>{label}</label>
         </>
