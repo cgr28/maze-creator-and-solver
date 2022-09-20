@@ -17,6 +17,14 @@ npm install
 npm start
 ```
 #### Backend
+##### Option 1 - app.py
+```bash
+cd backend
+pip install -r requirements.txt
+python3 app.py
+```
+or
+##### Option 2 - gunicorn
 ```bash
 cd backend
 pip install -r requirements.txt
