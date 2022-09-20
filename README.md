@@ -2,7 +2,7 @@
 A Python Flask and React web app that allows you to create and download mazes with solutions.
 ![Walk-through](https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/imgs/walkthrough.gif)
 <br />
-<a src="https://maze-creator-and-solver.herokuapp.com/"><img src="https://img.shields.io/badge/website-maze--creator--and--solver.herokuapp.com-green?style=for-the-badge" /></a>
+<a href="https://maze-creator-and-solver.herokuapp.com/"><img src="https://img.shields.io/badge/website-maze--creator--and--solver.herokuapp.com-green?style=for-the-badge" /></a>
 
 ## Install and Run App
 ### Docker
