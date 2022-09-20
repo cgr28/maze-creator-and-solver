@@ -29,7 +29,7 @@ or
 ```bash
 cd backend
 pip install -r requirements.txt
-gunciorn -b :8080 app:app
+gunicorn -b :8080 app:app
 ```
 
 ***View at http://localhost:3000***
