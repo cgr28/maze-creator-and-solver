@@ -9,6 +9,7 @@ A Python Flask and React web app that allows you to create and download mazes wi
 ```bash
 docker compose up
 ```
+***View at any of the following http://localhost:8080 | http://0.0.0.0:8080/ | http://127.0.0.1:8080/***
 ### Manual
 #### Frontend
 ```bash
@@ -30,6 +31,8 @@ cd backend
 pip install -r requirements.txt
 gunciorn -b :8080 app:app
 ```
+
+***View at http://localhost:3000***
 
 ## Usage
 1. Select the algorithm that will be used to create the maze.
