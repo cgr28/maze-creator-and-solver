@@ -1,6 +1,6 @@
+***This is the Heroku deployment branch which can be viewed at [maze-creator-and-solver.herokuapp.com](https://maze-creator-and-solver.herokuapp.com/) to run locally visit the [main branch](https://github.com/cgr28/maze-creator-and-solver/tree/main).***
 # Maze Creator And Solver ![Icon](https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/frontend/public/icon.png)
 A Python Flask and React web app that allows you to create and download mazes with solutions.
-***This is the Heroku deployment branch which can be viewed at [maze-creator-and-solver.herokuapp.com](https://maze-creator-and-solver.herokuapp.com/) to run locally visit the [main branch](https://github.com/cgr28/maze-creator-and-solver/tree/main).***
 ![Walk-through](https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/imgs/walkthrough.gif)
 <br />
 <a href="https://maze-creator-and-solver.herokuapp.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/website-maze--creator--and--solver.herokuapp.com-green?style=for-the-badge" /></a>
