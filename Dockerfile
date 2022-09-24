@@ -15,7 +15,7 @@ RUN mkdir ./api
 COPY ./backend ./api
 RUN pip install -r ./api/requirements.txt
 
-EXPOSE $PORT
+EXPOSE 80
 
 WORKDIR /app/api
-CMD ["gunicorn", "app:app"]
+CMD ["gunicorn", "-b", ":80", "app:app"]
