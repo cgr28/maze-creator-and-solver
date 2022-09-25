@@ -112,7 +112,7 @@ function App() {
                             return (
                                 <div key={index}>
                                     <Checkbox
-                                        name={"solver"}
+                                        name={value}
                                         label={name}
                                         value={value}
                                         checked={solvers[index]}
