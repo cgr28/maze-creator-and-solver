@@ -2,11 +2,11 @@
 A Python Flask and React web app that allows you to create and download mazes with solutions.
 ![Walk-through](https://raw.githubusercontent.com/cgr28/maze-creator-and-solver/main/imgs/walkthrough.gif)
 <br />
-<a href="https://www.maze-pedia.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/maze--pedia.com-red?style=for-the-badge" /></a>
+<a href="http://www.maze-pedia.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/maze--pedia.com-red?style=for-the-badge" /></a>
 
 ## Install and Run App
 ### Visit the website (no installation required)
-***View at [maze-pedia.com]("www.maze-pedia.com")***
+***View at [maze-pedia.com]("http://www.maze-pedia.com")***
 ### Docker
 ```bash
 docker compose up
