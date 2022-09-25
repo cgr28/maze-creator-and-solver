@@ -9,7 +9,9 @@ jobs:
     steps:
       - name: Checkout Latest Repo
 
-        uses: actions/checkout@aws
+        uses: actions/checkout@v3
+        with:
+          ref: aws
         
       - name: Generate Deployment Package 
 
