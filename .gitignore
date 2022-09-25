@@ -165,6 +165,7 @@ lib64
 pyvenv.cfg
 maze.svg
 main.py
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
