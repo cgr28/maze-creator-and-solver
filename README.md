@@ -6,7 +6,7 @@ A Python Flask and React web app that allows you to create and download mazes wi
 
 ## Install and Run App
 ### Visit the website (no installation required)
-***View at [maze-pedia.com]("http://www.maze-pedia.com")***
+***View at <a href="http://www.maze-pedia.com/" >maze-pedia.com</a>***
 ### Docker
 ```bash
 docker compose up
