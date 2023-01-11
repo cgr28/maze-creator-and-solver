@@ -13,7 +13,7 @@ export default function Maze({ maze, solInfo, height, width, id }) {
             <div>Solver: {solverMap[solInfo.search_type]}</div>
             <div>Cells Visited: {solInfo.visited_cells}</div>
             <div>Solution Length: {solInfo.solution_length}</div>
-            <canvas id={id}></canvas>
+            <canvas id={id} className={"maze-output"}></canvas>
             {canvas ? (
                 <div className="mt-2">
                     <button

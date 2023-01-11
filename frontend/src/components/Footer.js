@@ -22,6 +22,15 @@ export default function Footer() {
             >
                 GitHub
             </a>
+            <br />
+            <a
+                href="https://github.com/cgr28/maze-creator-and-solver/tree/heroku#maze-creator-algorithms"
+                target="_blank"
+                id="github-link"
+                rel="noreferrer"
+            >
+                Algos Info
+            </a>
         </div>
     );
 }
